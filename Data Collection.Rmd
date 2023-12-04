@@ -255,5 +255,12 @@ combine_df =
 ```
 
 
+### Export the final dataset
+```{r}
+write.csv(combine_df, "final data.csv", row.names = FALSE)
+```
+
+
+
 
 

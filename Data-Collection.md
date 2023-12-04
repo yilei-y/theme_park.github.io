@@ -264,3 +264,9 @@ top20_mu_emea_clean_df =
 combine_df = 
   bind_rows(top25_tp_worldwide_clean_df, top20_tp_na_clean_df, top10_tp_la_clean_df, top20_tp_apac_clean_df, top20_wp_na_clean_df, top10_wp_la_clean_df, top20_wp_apac_clean_df, top20_mu_worldwide_clean_df, top20_mu_emea_clean_df)
 ```
+
+### Export the final dataset
+
+``` r
+write.csv(combine_df, "final data.csv", row.names = FALSE)
+```
