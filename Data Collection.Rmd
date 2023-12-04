@@ -27,11 +27,12 @@ top25_tp_worldwide_clean_df =
     col = ("Most visited amusement and theme parks worldwide 2019-2022"), into = c("Park_Name", "Country_State"), sep = ","
   ) |>
   mutate(
-    Type = ("Amusement/Theme Park"),
+    Type = "Amusement/Theme Park",
+    Region = "Worldwide",
     Attendance = Attendance * 10e6
   ) |>
   select(
-    Park_Name, Country_State, Year, Attendance, Type
+    Park_Name, Country_State, Year, Attendance, Type, Region
   )
 ```
 
@@ -52,11 +53,12 @@ top20_tp_na_clean_df =
     col = ("Most visited amusement and theme parks in North America 2022"), into = c("Park_Name", "Country_State"), sep = ","
   ) |>
   mutate(
-    Type = ("Amusement/Theme Park"),
+    Type = "Amusement/Theme Park",
+    Region = "North America",
     Attendance = Attendance * 10e6
   ) |>
   select(
-    Park_Name, Country_State, Year, Attendance, Type
+    Park_Name, Country_State, Year, Attendance, Type, Region
   )
 ```
 
@@ -78,11 +80,12 @@ top10_tp_la_clean_df =
     col = ("Most visited Latin American amusement and theme parks 2019-2022"), into = c("Park_Name", "Country_State"), sep = ","
   ) |>
   mutate(
-    Type = ("Amusement/Theme Park"),
+    Type = "Amusement/Theme Park",
+    Region = "Latin America",
     Attendance = Attendance * 10e6
   ) |>
   select(
-    Park_Name, Country_State, Year, Attendance, Type
+    Park_Name, Country_State, Year, Attendance, Type, Region
   )
 ```
 
@@ -104,11 +107,12 @@ top20_tp_apac_clean_df =
     col = ("Most visited amusement and theme parks APAC 2019-2021"), into = c("Park_Name", "Country_State"), sep = ","
   ) |>
   mutate(
-    Type = ("Amusement/Theme Park"),
+    Type = "Amusement/Theme Park",
+    Region = "Asia Pacific",
     Attendance = Attendance * 10e6
   ) |>
   select(
-    Park_Name, Country_State, Year, Attendance, Type
+    Park_Name, Country_State, Year, Attendance, Type, Region
   )
 ```
 
@@ -129,11 +133,12 @@ top20_wp_na_clean_df =
     col = ("Total attendance at waterparks in the U.S. 2019-2022"), into = c("Park_Name", "Country_State"), sep = ","
   ) |>
   mutate(
-    Type = ("Water Park"),
+    Type = "Water Park",
+    Region = "North America",
     Attendance = Attendance * 10e6
   ) |>
   select(
-    Park_Name, Country_State, Year, Attendance, Type
+    Park_Name, Country_State, Year, Attendance, Type, Region
   )
 ```
 
@@ -154,11 +159,12 @@ top10_wp_la_clean_df =
     col = ("Most visited Latin American water parks 2020"), into = c("Park_Name", "Country_State"), sep = ","
   ) |>
   mutate(
-    Type = ("Water Park"),
+    Type = "Water Park",
+    Region = "Latin America",
     Attendance = Attendance * 10e3
   ) |>
   select(
-    Park_Name, Country_State, Year, Attendance, Type
+    Park_Name, Country_State, Year, Attendance, Type, Region
   )
 ```
 
@@ -179,11 +185,12 @@ top20_wp_apac_clean_df =
     col = ("Most visited water parks APAC 2019-2021"), into = c("Park_Name", "Country_State"), sep = ","
   ) |>
   mutate(
-    Type = ("Water Park"),
+    Type = "Water Park",
+    Region = "Asia Pacific",
     Attendance = Attendance * 10e6
   ) |>
   select(
-    Park_Name, Country_State, Year, Attendance, Type
+    Park_Name, Country_State, Year, Attendance, Type, Region
   )
 ```
 
@@ -205,11 +212,12 @@ top20_mu_worldwide_clean_df =
     col = ("Leading museums by highest attendance worldwide 2019-2022"), into = c("Park_Name", "Country_State"), sep = ","
   ) |>
   mutate(
-    Type = ("Museum"),
+    Type = "Museum",
+    Region = "Worldwide",
     Attendance = Attendance * 10e6
   ) |>
   select(
-    Park_Name, Country_State, Year, Attendance, Type
+    Park_Name, Country_State, Year, Attendance, Type, Region
   )
 ```
 
@@ -230,12 +238,20 @@ top20_mu_emea_clean_df =
     col = ("Most visited museums in Europe 2019-2022"), into = c("Park_Name", "Country_State"), sep = ","
   ) |>
   mutate(
-    Type = ("Museum"),
+    Type = "Museum",
+    Region = "Europe",
     Attendance = Attendance * 10e3
   ) |>
   select(
-    Park_Name, Country_State, Year, Attendance, Type
+    Park_Name, Country_State, Year, Attendance, Type, Region
   )
+```
+
+
+### Combine all dataset
+```{r}
+combine_df = 
+  bind_rows(top25_tp_worldwide_clean_df, top20_tp_na_clean_df, top10_tp_la_clean_df, top20_tp_apac_clean_df, top20_wp_na_clean_df, top10_wp_la_clean_df, top20_wp_apac_clean_df, top20_mu_worldwide_clean_df, top20_mu_emea_clean_df)
 ```
 
 
