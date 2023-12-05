@@ -31,3 +31,21 @@ theme_full|>
 
 ```
 
+anova test by year between 2019 to 2022
+$$H_0: \mu_{\text{2019}} = \mu_{\text{2020}} = \mu_{\text{2021}}= \mu_{\text{2022}} ~~ \text{vs} ~~ H_1: \text{at least two means are not equal}$$
+```{r}
+
+dat = 
+  theme_full |> 
+  filter(
+    Region != c("Worldwide")
+    ) |> 
+  mutate(
+    Year = as.factor(Year)
+  ) 
+
+anova2 = aov(Attendance ~ Year , data = dat) |> 
+  summary()
+
+```
+With a p-value of less than 2e-16, we would reject the null hypothesis. We have evidence that at least two of the means are not equal. Meaning the mean attendance among year groups is different for at least two groups.
