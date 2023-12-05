@@ -75,5 +75,20 @@ theme_park |>
           type = "scatter", mode = 'point', colors = "viridis")
 ```
 
+## ANOVA TEST BY TYPE
+
+```{r}
+theme_park_anova = 
+  theme_park |> 
+  filter(
+    Region != c("Worldwide")
+  ) |> 
+  mutate(
+    Type = as.factor(Type)
+  )
+
+anova_1 = aov(Attendance ~ Type, data = theme_park_anova) |> summary()
+
+```
 
 
