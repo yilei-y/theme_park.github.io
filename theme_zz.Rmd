@@ -1,0 +1,33 @@
+---
+title: "theme_zz3168"
+author: "Zixuan Zhang"
+date: "2023-12-05"
+output: html_document
+---
+```{r}
+library(tidyverse)
+library(plotly)
+```
+
+
+```{r}
+theme_full = 
+  read_csv("ultimate data.csv")
+```
+
+Top 20 theme park from worldwide's sum attendance by different country.
+```{r}
+#| echo: false
+#| message: false
+theme_full|> 
+  filter(Region == "Worldwide") |> 
+  group_by(Country) |> 
+  summarise(sumattand = sum(Attendance)) |> 
+  plot_ly(x = ~ Country, y = ~ sumattand, color = ~ Country, type = "bar", colors = "viridis", alpha = 0.5) 
+```
+
+
+```{r}
+
+```
+
