@@ -31,16 +31,17 @@ theme_set(theme_minimal() + theme(legend.position = "bottom"))
 ```{r, include=FALSE}
 theme_park = read_csv("ultimate data.csv") |> 
     mutate(
-    Year = as.factor(Year)
-  ) 
+    Year = as.factor(Year),
+    Type = as.factor(Type)
+  ) |> 
+    filter(
+      Region != c("Worldwide")
+    ) 
 ```
 
 ## Summary: Total Attendance by Type
 ```{r region attend summary}
 theme_park  |> 
-    filter(
-      Region != c("Worldwide")
-    ) |> 
     group_by(Year, Type) |> 
     mutate(
       Attendance = Attendance / 100000
@@ -66,9 +67,6 @@ theme_park |>
 
 ```{r}
  theme_park|> 
-  filter(
-    Region != c("Worldwide")
-  ) |> 
   group_by(Region, Year)  |> 
   summarize(attend_sum = mean(Attendance)) |> 
   plot_ly(x = ~Year, y = ~attend_sum, color = ~Region,
@@ -77,18 +75,17 @@ theme_park |>
 
 ## ANOVA TEST BY TYPE
 
-```{r}
-theme_park_anova = 
-  theme_park |> 
-  filter(
-    Region != c("Worldwide")
-  ) |> 
-  mutate(
-    Type = as.factor(Type)
-  )
+$$H_0: \mu_{\text{Amusement/Theme Park}} = \mu_{\text{Water Park}} = \mu_{\text{Museum}} ~~ \text{vs} ~~ H_1: \text{at least two means are not equal}$$
 
-anova_1 = aov(Attendance ~ Type, data = theme_park_anova) |> summary()
+```{r}
+
+anova_1 = aov(Attendance ~ Type, data = theme_park)
+
+summary(anova_1)
 
 ```
 
+With a p-value of less than 2e-16, we would reject the null hypothesis. We have evidence that at least
+two of the means are not equal. Meaning the mean attendance among type groups is different
+for at least two groups.
 
