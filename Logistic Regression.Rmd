@@ -9,6 +9,7 @@ output: github_document
 library(tidyverse)
 library(modelr)
 library(viridis)
+library(caret)
 
 knitr::opts_chunk$set(
 	echo = TRUE,
@@ -33,6 +34,8 @@ scale_fill_discrete = scale_fill_viridis_d
 
 
 ```{r}
+set.seed(12138)
+
 park_df =
   read_csv("ultimate data.csv") |>
   janitor::clean_names() |>
@@ -52,104 +55,55 @@ logistic_df =
     ),
     pandemic_level = as.factor(pandemic_level)
   ) 
-
 ```
 
 
 ```{r}
-table(logistic_df$pandemic_level)
-
 logistic_df |>
   ggplot(aes(park_name, log10(attendance), color = pandemic_level)) +
   geom_point(alpha = .7) +
-  facet_grid(. ~ region )
-
-logistic_df |>
-  filter(region == "Asia Pacific") |>
-  ggplot(aes(park_name, log10(attendance), color = pandemic_level)) +
-  geom_point(alpha = .7) +
-  facet_grid(. ~ country)
+  facet_grid(. ~ region ) +
+  labs(x = "Parks", y = "Attendance") +
+  theme(axis.text.x = element_blank() )
 ```
-
-
 
 ```{r}
 cv_results = 
+  logistic_df |>
+  filter(region != "Worldwide") 
+
+cv_df = 
   crossv_mc(
-  logistic_df,
-  n = 10,
-  test = 0.2,
-  id = ".id"
+  cv_results,1
 )
 
 cv_df =
-  cv_results |> 
+  cv_df |> 
   mutate(
     train = map(train, as_tibble),
     test = map(test, as_tibble))
 ```
 
-test
 
 ```{r}
-colnames(logistic_df)
-cv_df = 
-  cv_df |> 
-  mutate(
-    attend_mod  = map(train, \(df) glm(pandemic_level ~ attendance, family = "binomial", data = df)),
-    attend_type_mod  = map(train, \(df) glm(pandemic_level ~ attendance + type , family = "binomial", data = df)),
-    attend_type_region  = map(train, \(df) glm(pandemic_level ~ attendance + type + region , family = "binomial", data = df))
-    ) |> 
-  mutate(
-    rmse_attend = map2_dbl(attend_mod, test, \(mod, df) rmse(model = mod, data = df)),
-    rmse_type = map2_dbl(attend_type_mod, test, \(mod, df) rmse(model = mod, data = df)),
-    rmse_region = map2_dbl(attend_type_region, test, \(mod, df) rmse(model = mod, data = df)))
-```
+log_mod =  
+  cv_df |>
+  select(train) |>
+  unnest(cols = c(train)) |>
+  glm(pandemic_level ~ attendance + type + region, family = "binomial", data = _)
 
+step(log_mod, direction = "forward")
 
-test
-先不分region，去除worldwide
-看图选region
+best_fit = log_mod
 
-```{r}
-# 使用glm()函数进行逻辑回归
-model <- glm(Flow ~ ParkType + YearType, data = data, family = "binomial")
-colnames(logistic_df)
-
-test1 = logistic_df |>
-  filter(region == "Asia Pacific")
-
-logistic_df$region
-model =  glm(pandemic_level ~ attendance  , family = "binomial", data =logistic_df)
-summary(model)
-model =  glm(pandemic_level ~ attendance + type , family = "binomial", data =logistic_df)
-summary(model)
-model =  glm(pandemic_level ~ attendance + type + country, family = "binomial", data =logistic_df)
-summary(model)
-# 查看模型摘要
-summary(model)
-```
-
-
-```{r}
-# 使用glm()函数进行逻辑回归
-model <- glm(Flow ~ ParkType + YearType, data = data, family = "binomial")
-colnames(logistic_df)
-
-test1 = logistic_df |>
-  filter(region == "Asia Pacific")
-
-logistic_df$region
-model =  glm(pandemic_level ~ attendance  , family = "binomial", data =test1)
-summary(model)
-model =  glm(pandemic_level ~ attendance + type , family = "binomial", data =test1)
-summary(model)
-model =  glm(pandemic_level ~ attendance + type + country, family = "binomial", data =test1)
-summary(model)
-# 查看模型摘要
-summary(model)
+summary(best_fit)
 
 ```
 
+```{r}
+ctrl <- trainControl(method = "cv", number = 5)
 
+model <- train(pandemic_level ~ attendance + type + region, data = logistic_df, method = "glm", family = "binomial", trControl = ctrl)
 
+print(model)
+```
