@@ -190,8 +190,7 @@ plot(roc1, print.auc=T, auc.polygon=T, grid=c(0.1, 0.2),
      grid.col=c("green", "red"), max.auc.polygon=T,
      auc.polygon.col="skyblue", 
      print.thres=T)
-
-mtext("Fig.2 The ROC curve for fold 1 of the model", side = 1, line = 5)
+mtext("Fig.3 The ROC curve for fold 1 of the model", side = 1, line = 4.1)
 ``` 
 
 After 5 fold cross validation, the model performance was indicated by a mean AUC value, which equals to `r mean(auc_value)`, the ROC curve for fold 1 was displayed in Fig.3 as an example. 
