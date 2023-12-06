@@ -1,0 +1,315 @@
+---
+title: "Regression"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
+    code_folding: hide
+---
+```{r, include=FALSE}
+library(tidyverse)
+```
+
+```{r, include=FALSE}
+data_df =
+  read_csv("ultimate data.csv") |>
+  janitor::clean_names() |>
+  select(attendance, everything()) |>
+  filter(!region == "Worldwide")
+```
+
+# Linear Regression
+Linear regression is used to model the relationship between attendance and five independent variables (city, country, year, type, and region). It assumes that this relationship is linear, meaning changes in the predictors are associated with a constant change in the response. We first fit linear regression of each predictors to check if they are associated with attendance.
+
+## Fit a simple linear regression between city and attendance
+```{r, include=FALSE}
+city_fit = lm(attendance ~ city, data = data_df) 
+summary(city_fit)
+```
+
+```{r, message = FALSE, echo = FALSE}
+data_df |>
+  ggplot(aes(city, attendance)) + geom_point(color='pink') + 
+  theme_bw() +
+  geom_smooth(method='lm', se=FALSE, color='orange') +
+  labs(x="City", y="Attendance ")
+```
+
+a few cities are associated with attendance such as ANAHEIM, Beijing, UNIVERSAL CITY, TOKYO, VATICAN. In general, there is no apparent linear relationship between city and attendance.
+
+## Fit a simple linear regression between country and attendance
+```{r, include=FALSE}
+country_fit = lm(attendance ~ country, data = data_df) 
+summary(country_fit)
+```
+
+```{r, message = FALSE, echo = FALSE}
+data_df |>
+  ggplot(aes(country, attendance)) + geom_point(color='pink') + 
+  theme_bw() +
+  geom_smooth(method='lm', se=FALSE, color='orange') +
+  labs(x="Country", y="Attendance ")
+```
+
+only one country Japan is significantly associated with attendance. In general, there is no apparent linear relationship between country and attendance. 
+
+## Fit a simple linear regression between year and attendance
+```{r, message = FALSE, echo = FALSE}
+year_fit = lm(attendance ~ year, data = data_df) 
+summary(year_fit)
+```
+
+according to the summary of linear regression, $\widehat{Y}=\widehat{\beta_0}+\widehat{\beta_1}*X$.
+Linear Model: $\widehat{attendance }=6104922321-3011354*year$. 
+
+```{r, message = FALSE, echo = FALSE}
+data_df |>
+  ggplot(aes(year, attendance)) + geom_point(color='pink') + 
+  theme_bw() +
+  geom_smooth(method='lm', se=FALSE, color='orange') +
+  labs(x="Year", y="Attendance ")
+```
+
+Year is significantly associated with attendance, and there is a linear relationship between year and attendance. Attendance has experienced a decline from 2019 to 2022. 
+
+## Fit a simple linear regression between park type and attendance
+```{r, include=FALSE}
+type_fit = lm(attendance ~ type, data = data_df) 
+summary(type_fit)
+```
+
+```{r, message = FALSE, echo = FALSE}
+data_df |>
+  ggplot(aes(type, attendance)) + geom_point(color='pink') + 
+  theme_bw() +
+  geom_smooth(method='lm', se=FALSE, color='orange') +
+  labs(x="Type", y="Attendance ")
+```
+
+Park type is significantly associated with attendance. Amusement/Theme Park has the highest attendance and water park has the lowest attendance. 
+
+## Fit a simple linear regression between region and attendance
+```{r, include=FALSE}
+region_fit = lm(attendance ~ region, data = data_df) 
+summary(region_fit)
+```
+
+```{r, message = FALSE, echo = FALSE}
+data_df |>
+  ggplot(aes(region, attendance)) + geom_point(color='pink') + 
+  theme_bw() +
+  geom_smooth(method='lm', se=FALSE, color='orange') +
+  labs(x="region", y="Attendance ")
+```
+
+Latin America is significantly associated with attendance. Overall, there is no apparent linear relationship between region and attendance.  
+
+## Fit a Multiple linear regression
+Multiple linear regression allows us to account for the influence of multiple independent variables on the attendance simultaneously. The outcomes of the linear regression analysis suggest that the variable "year" exhibits a linear relationship with attendance. Additionally, specific categories within the "type" and "region" variables are found to be significantly associated with attendance. Thus, variables "year", "type", and "region" are used to fit a multiple linear regression. 
+```{r, echo = FALSE}
+multi_fit = lm(attendance ~ year + type + region, data = data_df)
+summary(multi_fit)
+```
+
+only North America within region is not significantly associated with attendance.
+
+## Stepwise regression
+stepwise regression helps streamline the modeling process by automatically including or excluding variables based on statistical criteria. We use both backward and forward selection to find the best fit model. 
+```{r, echo = FALSE}
+step(multi_fit, direction='both')
+```
+
+The best fit model with lowest AIC is $\widehat{attendance}=\widehat{\beta_0}+\widehat{\beta_1}*year+\widehat{\beta_2}*type+\widehat{\beta_3}*region$.
+
+# Logistic Regression
+
+## Background
+
+In order to further study the relationship between different stages of the COVID-19 pandemic and the visitor flow of the theme park, based on the development process of the pandemic, the years from 2019 to 2022 are divided into two pandemic levels
+
+* Outbreak period: 2019 to 2021
+
+* Control period: 2022
+
+Then add to our data as `pandemic_level`.
+
+Furthermore, to classify the pandemic period by park attendance and other covariates, including Park Type and Region, we established a logistic regression model with `pandemic_level` as the dependent variable.
+
+## Data Preparation
+
+```{r setup, include=FALSE, message=FALSE}
+library(tidyverse)
+library(modelr)
+library(viridis)
+library(caret)
+library(pROC)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	message = FALSE,
+	fig.width = 9, 
+  fig.height = 6,
+  out.width = "90%",
+	fig.align = 'center'
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+
+```{r message=FALSE, warning=FALSE}
+#import the data and tidy
+set.seed(12138)
+
+park_df =
+  read_csv("ultimate data.csv") |>
+  janitor::clean_names() |>
+  drop_na()
+
+logistic_df = 
+  park_df |>
+  mutate(
+    type = as.factor(type),
+    region = as.factor(region),
+    country = as.factor(country),
+    pandemic_level = case_when(
+      year == 2019 ~ "outbreak",
+      year == 2020 ~ "outbreak",
+      year == 2021 ~ "outbreak",
+      year == 2022 ~ "control"
+    ),
+    pandemic_level = as.factor(pandemic_level)
+  ) 
+```
+
+
+```{r}
+#attendance relationship
+logistic_df |>
+  ggplot(aes(park_name, log10(attendance), color = pandemic_level)) +
+  geom_point(alpha = .7) +
+  facet_grid(. ~ region ) +
+  labs(x = "Parks", y = "Attendance (log10)",
+       caption = "Fig.1 The relationship between park attendance and pandemic level across regions") +
+  theme(axis.text.x = element_blank() )
+```
+
+```{r}
+#split data into train and test subset
+cv_results = 
+  logistic_df |>
+  filter(region != "Worldwide") |>
+  mutate(
+    pandemic_level = 
+      case_match(
+        pandemic_level,
+        "outbreak" ~ 1,
+        "control" ~ 0
+      )
+  )
+
+cv_df = 
+  crossv_mc(
+  cv_results,1
+)
+
+cv_df =
+  cv_df |> 
+  mutate(
+    train = map(train, as_tibble),
+    test = map(test, as_tibble))
+```
+
+After transforming attendance by log function, the relationship between the park attendance an the pandemic levels was displayed in Fig.1. 
+
+It can be noticed that different epidemic stages may have different visitor flow patterns, in other words, the traffic of theme parks from 2019 to 2022 can be classified according to the extent of the epidemic. This is particularly true in EMEA, the Middle East and Latin America.
+
+Then the observations in region *"Worldwide"* were excluded as redundant data and `pandemic_level` is converted to a binomial distribution in order to fit logistic regression models and predict epidemic levels more easily.
+
+## Logistic model
+
+```{r results='hide'}
+#fit model and selection
+log_mod =  
+  cv_df |>
+  select(train) |>
+  unnest(cols = c(train)) |>
+  glm(pandemic_level ~ attendance + type + region, family = "binomial", data = _)
+
+step(log_mod, direction = "forward") 
+
+best_fit = log_mod
+```
+
+```{r}
+#model summary
+coef(best_fit) |>
+  knitr::kable(col.names = c("Variables" , "Coefficients"),
+               caption = "Table.1 The coefficients of model")
+
+best_fit |>
+  broom::tidy() |>
+  knitr::kable(caption = "Table.2 Summary of the chose model" )
+
+best_fit |>
+  broom::glance() |>
+  knitr::kable(caption = "Table.3 The AIC of the model")
+```
+
+A full logistic regression model was fitted to our data with all Concomitant variables that we were interested in, including `attendance`, `type`, and `region` by `glm()` function with `binomial` as family.
+
+Then forward step-wise model selection was performed by `step()` to selected the best fitted model with lowest AIC value. 
+
+After step-wise selection, we chose the full model as the final logistic regression model while `attendance`, `typeMuseum`, `regionEMEA` and `regionLatin America` showed significant association with the `pandemic_level`. As showed in Table.1, the model statement is \newline
+
+*pandemic_level = 2.2365446 + (-8.5e-09)attendance + (-0.8417669)Museum + (-0.5368024)Water Park + (-0.7424560)EMEA + (-0.0950834)Europe Middle East Africa + (-0.8266498)Latin America +(-0.4789397)North America*
+
+## Cross validation and ROC
+
+```{r}
+#cross validation 5 fold
+set.seed(1)
+folds <- createFolds(y=pull(cv_results, pandemic_level),k=5)
+
+#five fold ROC
+auc_value<-as.numeric()
+
+for(i in 1:5){
+  fold_test <- cv_results[folds[[i]],] 
+  fold_train <- cv_results[-folds[[i]],] 
+  fold_pre <- glm(pandemic_level ~ attendance + type + region, family = "binomial", data = fold_train )
+  fold_predict <- predict(fold_pre,type='response',newdata=fold_test)
+  auc_value<- append(auc_value,as.numeric(auc(as.numeric(pull(fold_test, pandemic_level)),fold_predict)))
+}
+
+
+#ROC for fold 1 as example
+fold_test <- cv_results[folds[[1]],]
+fold_train <- cv_results[-folds[[1]],]
+
+fold_pre <- glm(pandemic_level ~ attendance + type + region, family = "binomial", data = fold_train ) 
+fold_predict <- predict(fold_pre,type='response',newdata=fold_test)
+roc1<-roc(pull(fold_test, pandemic_level),fold_predict)
+
+plot(roc1, print.auc=T, auc.polygon=T, grid=c(0.1, 0.2),
+     grid.col=c("green", "red"), max.auc.polygon=T,
+     auc.polygon.col="skyblue", 
+     print.thres=T)
+mtext("Fig.3 The ROC curve for fold 1 of the model", side = 1, line = 4.1)
+``` 
+
+After 5 fold cross validation, the model performance was indicated by a mean AUC value, which equals to `r mean(auc_value)`, the ROC curve for fold 1 was displayed in Fig.3 as an example. 
+
+## Disscusion
+
+According to the results, the prediction ability of the model was not excellent with a low AUC value, which may cause by the small sample size. In addition, in the binary classification of dependent variables, the sample size gap between the two categories was large, and the model can be improved by under-sampling or over-sampling methods. Moreover, the prediction ability of the model can be improved by adding weight parameters when establishing the model.
