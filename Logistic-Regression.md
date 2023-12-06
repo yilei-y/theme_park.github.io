@@ -3,6 +3,10 @@ Logistic Regression
 Peng Su
 2023-12-05
 
+## Logistic Regression
+
+### 
+
 ``` r
 set.seed(12138)
 
@@ -41,7 +45,15 @@ logistic_df |>
 ``` r
 cv_results = 
   logistic_df |>
-  filter(region != "Worldwide") 
+  filter(region != "Worldwide") |>
+  mutate(
+    pandemic_level = 
+      case_match(
+        pandemic_level,
+        "outbreak" ~ 1,
+        "control" ~ 0
+      )
+  )
 
 cv_df = 
   crossv_mc(
@@ -89,53 +101,65 @@ step(log_mod, direction = "forward")
 ``` r
 best_fit = log_mod
 
-summary(best_fit)
+best_fit |>
+  broom::tidy() |>
+  knitr::kable()
 ```
 
-    ## 
-    ## Call:
-    ## glm(formula = pandemic_level ~ attendance + type + region, family = "binomial", 
-    ##     data = unnest(select(cv_df, train), cols = c(train)))
-    ## 
-    ## Coefficients:
-    ##                                   Estimate Std. Error z value Pr(>|z|)    
-    ## (Intercept)                      2.237e+00  3.398e-01   6.583 4.61e-11 ***
-    ## attendance                      -8.465e-09  4.106e-09  -2.062   0.0392 *  
-    ## typeMuseum                      -8.418e-01  3.304e-01  -2.548   0.0108 *  
-    ## typeWater Park                  -5.368e-01  2.900e-01  -1.851   0.0642 .  
-    ## regionEMEA                      -7.425e-01  3.420e-01  -2.171   0.0299 *  
-    ## regionEurope Middle East Africa -9.508e-02  3.876e-01  -0.245   0.8062    
-    ## regionLatin America             -8.266e-01  3.716e-01  -2.225   0.0261 *  
-    ## regionNorth America             -4.789e-01  2.576e-01  -1.859   0.0630 .  
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    ## 
-    ## (Dispersion parameter for binomial family taken to be 1)
-    ## 
-    ##     Null deviance: 637.59  on 590  degrees of freedom
-    ## Residual deviance: 625.74  on 583  degrees of freedom
-    ## AIC: 641.74
-    ## 
-    ## Number of Fisher Scoring iterations: 4
+| term                            |   estimate | std.error |  statistic |   p.value |
+|:--------------------------------|-----------:|----------:|-----------:|----------:|
+| (Intercept)                     |  2.2365446 | 0.3397519 |  6.5828760 | 0.0000000 |
+| attendance                      |  0.0000000 | 0.0000000 | -2.0617899 | 0.0392277 |
+| typeMuseum                      | -0.8417669 | 0.3303785 | -2.5478863 | 0.0108378 |
+| typeWater Park                  | -0.5368024 | 0.2900213 | -1.8509072 | 0.0641829 |
+| regionEMEA                      | -0.7424560 | 0.3419614 | -2.1711691 | 0.0299184 |
+| regionEurope Middle East Africa | -0.0950834 | 0.3875865 | -0.2453216 | 0.8062074 |
+| regionLatin America             | -0.8266498 | 0.3715557 | -2.2248340 | 0.0260924 |
+| regionNorth America             | -0.4789397 | 0.2575723 | -1.8594381 | 0.0629651 |
 
 ``` r
-ctrl <- trainControl(method = "cv", number = 5)
+set.seed(1)
+folds <- createFolds(y=pull(cv_results, pandemic_level),k=5)###分成10份
 
-model <- train(pandemic_level ~ attendance + type + region, data = logistic_df, method = "glm", family = "binomial", trControl = ctrl)
+fold_test <- cv_results[folds[[1]],]#取fold 1数据，建立测试集和验证集
+fold_train <- cv_results[-folds[[1]],]
 
-print(model)
+fold_pre <- glm(pandemic_level ~ attendance + type + region, family = "binomial", data = fold_train ) 
+fold_predict <- predict(fold_pre,type='response',newdata=fold_test)
+
+roc1<-roc(pull(fold_test, pandemic_level),fold_predict)
+round(auc(roc1),3)##AUC
 ```
 
-    ## Generalized Linear Model 
-    ## 
-    ## 920 samples
-    ##   3 predictor
-    ##   2 classes: 'control', 'outbreak' 
-    ## 
-    ## No pre-processing
-    ## Resampling: Cross-Validated (5 fold) 
-    ## Summary of sample sizes: 736, 736, 736, 736, 736 
-    ## Resampling results:
-    ## 
-    ##   Accuracy   Kappa       
-    ##   0.7641304  -0.004242723
+    ## [1] 0.597
+
+``` r
+round(ci(roc1),3)
+```
+
+    ## [1] 0.489 0.597 0.705
+
+``` r
+plot(roc1, print.auc=T, auc.polygon=T, grid=c(0.1, 0.2),
+     grid.col=c("green", "red"), max.auc.polygon=T,
+     auc.polygon.col="skyblue", 
+     print.thres=T)
+```
+
+<img src="Logistic-Regression_files/figure-gfm/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" />
+
+``` r
+auc_value<-as.numeric()
+
+for(i in 1:5){
+  fold_test <- cv_results[folds[[i]],] #取folds[[i]]作为测试集
+  fold_train <- cv_results[-folds[[i]],] # 剩下的数据作为训练集
+  fold_pre <- glm(pandemic_level ~ attendance + type + region, family = "binomial", data = fold_train )
+  fold_predict <- predict(fold_pre,type='response',newdata=fold_test)
+  auc_value<- append(auc_value,as.numeric(auc(as.numeric(pull(fold_test, pandemic_level)),fold_predict)))
+}
+
+mean(auc_value)
+```
+
+    ## [1] 0.5564096

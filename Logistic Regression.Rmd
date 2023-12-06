@@ -1,15 +1,34 @@
 ---
 title: "Logistic Regression"
-author: "Peng Su"
-date: "2023-12-05"
-output: github_document
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
+    code_folding: hide
 ---
+# Logistic Regression
+
+## Background
+
+In order to further study the relationship between different stages of the COVID-19 pandemic and the visitor flow of the theme park, based on the development process of the pandemic, the years from 2019 to 2022 are divided into two pandemic levels
+
+* Outbreak period: 2019 to 2021
+
+* Control period: 2022
+
+Then add to our data as `pandemic_level`.
+
+Furthermore, to classify the pandemic period by park attendance and other covariates, including Park Type and Region, we established a logistic regression model with `pandemic_level` as the dependent variable.
+
+## Data Preparation
 
 ```{r setup, include=FALSE, message=FALSE}
 library(tidyverse)
 library(modelr)
 library(viridis)
 library(caret)
+library(pROC)
 
 knitr::opts_chunk$set(
 	echo = TRUE,
@@ -33,7 +52,8 @@ scale_fill_discrete = scale_fill_viridis_d
 ```
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
+#import the data and tidy
 set.seed(12138)
 
 park_df =
@@ -59,18 +79,29 @@ logistic_df =
 
 
 ```{r}
+#attendance relationship
 logistic_df |>
   ggplot(aes(park_name, log10(attendance), color = pandemic_level)) +
   geom_point(alpha = .7) +
   facet_grid(. ~ region ) +
-  labs(x = "Parks", y = "Attendance") +
+  labs(x = "Parks", y = "Attendance (log10)",
+       caption = "Fig.1 The relationship between park attendance and pandemic level across regions") +
   theme(axis.text.x = element_blank() )
 ```
 
 ```{r}
+#split data into train and test subset
 cv_results = 
   logistic_df |>
-  filter(region != "Worldwide") 
+  filter(region != "Worldwide") |>
+  mutate(
+    pandemic_level = 
+      case_match(
+        pandemic_level,
+        "outbreak" ~ 1,
+        "control" ~ 0
+      )
+  )
 
 cv_df = 
   crossv_mc(
@@ -84,26 +115,87 @@ cv_df =
     test = map(test, as_tibble))
 ```
 
+After transforming attendance by log function, the relationship between the park attendance an the pandemic levels was displayed in Fig.1. 
 
-```{r}
+It can be noticed that different epidemic stages may have different visitor flow patterns, in other words, the traffic of theme parks from 2019 to 2022 can be classified according to the extent of the epidemic. This is particularly true in EMEA, the Middle East and Latin America.
+
+Then the observations in region *"Worldwide"* were excluded as redundant data and `pandemic_level` is converted to a binomial distribution in order to fit logistic regression models and predict epidemic levels more easily.
+
+## Logistic model
+
+```{r results='hide'}
+#fit model and selection
 log_mod =  
   cv_df |>
   select(train) |>
   unnest(cols = c(train)) |>
   glm(pandemic_level ~ attendance + type + region, family = "binomial", data = _)
 
-step(log_mod, direction = "forward")
+step(log_mod, direction = "forward") 
 
 best_fit = log_mod
-
-summary(best_fit)
-
 ```
 
 ```{r}
-ctrl <- trainControl(method = "cv", number = 5)
+#model summary
+coef(best_fit) |>
+  knitr::kable(col.names = c("Variables" , "Coefficients"),
+               caption = "Table.1 The coefficients of model")
 
-model <- train(pandemic_level ~ attendance + type + region, data = logistic_df, method = "glm", family = "binomial", trControl = ctrl)
+best_fit |>
+  broom::tidy() |>
+  knitr::kable(caption = "Table.2 Summary of the chose model" )
 
-print(model)
+best_fit |>
+  broom::glance() |>
+  knitr::kable(caption = "Table.3 The AIC of the model")
 ```
+
+A full logistic regression model was fitted to our data with all Concomitant variables that we were interested in, including `attendance`, `type`, and `region` by `glm()` function with `binomial` as family.
+
+Then forward step-wise model selection was performed by `step()` to selected the best fitted model with lowest AIC value. 
+
+After step-wise selection, we chose the full model as the final logistic regression model while `attendance`, `typeMuseum`, `regionEMEA` and `regionLatin America` showed significant association with the `pandemic_level`. As showed in Table.1, the model statement is \newline
+
+*pandemic_level = 2.2365446 + (-8.5e-09)attendance + (-0.8417669)Museum + (-0.5368024)Water Park + (-0.7424560)EMEA + (-0.0950834)Europe Middle East Africa + (-0.8266498)Latin America +(-0.4789397)North America*
+
+## Cross validation and ROC
+
+```{r}
+#cross validation 5 fold
+set.seed(1)
+folds <- createFolds(y=pull(cv_results, pandemic_level),k=5)
+
+#five fold ROC
+auc_value<-as.numeric()
+
+for(i in 1:5){
+  fold_test <- cv_results[folds[[i]],] 
+  fold_train <- cv_results[-folds[[i]],] 
+  fold_pre <- glm(pandemic_level ~ attendance + type + region, family = "binomial", data = fold_train )
+  fold_predict <- predict(fold_pre,type='response',newdata=fold_test)
+  auc_value<- append(auc_value,as.numeric(auc(as.numeric(pull(fold_test, pandemic_level)),fold_predict)))
+}
+
+
+#ROC for fold 1 as example
+fold_test <- cv_results[folds[[1]],]
+fold_train <- cv_results[-folds[[1]],]
+
+fold_pre <- glm(pandemic_level ~ attendance + type + region, family = "binomial", data = fold_train ) 
+fold_predict <- predict(fold_pre,type='response',newdata=fold_test)
+roc1<-roc(pull(fold_test, pandemic_level),fold_predict)
+
+plot(roc1, print.auc=T, auc.polygon=T, grid=c(0.1, 0.2),
+     grid.col=c("green", "red"), max.auc.polygon=T,
+     auc.polygon.col="skyblue", 
+     print.thres=T)
+
+mtext("Fig.2 The ROC curve for fold 1 of the model", side = 1, line = 5)
+``` 
+
+After 5 fold cross validation, the model performance was indicated by a mean AUC value, which equals to `r mean(auc_value)`, the ROC curve for fold 1 was displayed in Fig.3 as an example. 
+
+## Disscusion
+
+According to the results, the prediction ability of the model was not excellent with a low AUC value, which may cause by the small sample size. In addition, in the binary classification of dependent variables, the sample size gap between the two categories was large, and the model can be improved by under-sampling or over-sampling methods. Moreover, the prediction ability of the model can be improved by adding weight parameters when establishing the model.
