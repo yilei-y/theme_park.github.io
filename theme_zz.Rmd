@@ -5,10 +5,6 @@ output:
   html_document:
     toc: true
     toc_float: true
-<<<<<<< HEAD
-=======
-    theme: cosmo
->>>>>>> e05645d1df3e3bb6769dec97fb318af7e514d122
     code_folding: hide
 ---
 ```{r, include = FALSE}
