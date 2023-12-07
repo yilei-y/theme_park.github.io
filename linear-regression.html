@@ -11,13 +11,9 @@
 
 
 
-<title>Theme Parks</title>
+<title>linear-regression</title>
 
-<<<<<<< HEAD
 <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
-=======
-<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
->>>>>>> f2746379ebb65bb3f2a50312bab97339f56d76a3
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
@@ -33,14 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -228,69 +219,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -298,16 +226,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -351,20 +269,164 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Theme Parks</h1>
 
 </div>
 
 
-<div id="welcome-to-theme-parks" class="section level3">
-<h3>Welcome to Theme Parks!</h3>
-<p>Hello, this is our landing page for our project: Theme Parks</p>
+<div id="linear-regression" class="section level1">
+<h1>linear regression</h1>
+<p>2023-12-05</p>
+</div>
+<div id="regression" class="section level1">
+<h1>Regression</h1>
+<div id="linear-regression-1" class="section level2">
+<h2>Linear Regression</h2>
+<p>Linear regression is used to model the relationship between
+attendance and five independent variables (city, country, year, type,
+and region). It assumes that this relationship is linear, meaning
+changes in the predictors are associated with a constant change in the
+response. We first fit linear regression of each predictors to check if
+they are associated with attendance.</p>
+<div id="fit-a-simple-linear-regression-between-city-and-attendance"
+class="section level3">
+<h3>Fit a simple linear regression between city and attendance</h3>
+<p><img
+src="linear-regression_files/figure-gfm/unnamed-chunk-4-1.png" /><!-- --></p>
+<p>a few cities are associated with attendance such as ANAHEIM, Beijing,
+UNIVERSAL CITY, TOKYO, VATICAN. In general, there is no apparent linear
+relationship between city and attendance.</p>
+</div>
+<div id="fit-a-simple-linear-regression-between-country-and-attendance"
+class="section level3">
+<h3>Fit a simple linear regression between country and attendance</h3>
+<p><img
+src="linear-regression_files/figure-gfm/unnamed-chunk-6-1.png" /><!-- --></p>
+<p>only one country Japan is significantly associated with attendance.
+In general, there is no apparent linear relationship between country and
+attendance.</p>
+</div>
+<div id="fit-a-simple-linear-regression-between-year-and-attendance"
+class="section level3">
+<h3>Fit a simple linear regression between year and attendance</h3>
+<pre><code>## 
+## Call:
+## lm(formula = attendance ~ year, data = data_df)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -22189468 -14873528  -8200722   4982092 184429278 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 6104922321 1747418850   3.494 0.000505 ***
+## year          -3011254     864862  -3.482 0.000527 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.6e+07 on 738 degrees of freedom
+## Multiple R-squared:  0.01616,    Adjusted R-squared:  0.01483 
+## F-statistic: 12.12 on 1 and 738 DF,  p-value: 0.0005274</code></pre>
+<p>according to the summary of linear regression, <span
+class="math inline">\(\widehat{Y}=\widehat{\beta_0}+\widehat{\beta_1}*X\)</span>.
+Linear Model: <span class="math inline">\(\widehat{attendance
+}=6104922321-3011354*year\)</span>.</p>
+<p><img
+src="linear-regression_files/figure-gfm/unnamed-chunk-8-1.png" /><!-- --></p>
+<p>Year is significantly associated with attendance, and there is a
+linear relationship between year and attendance. Attendance has
+experienced a decline from 2019 to 2022.</p>
+</div>
+<div
+id="fit-a-simple-linear-regression-between-park-type-and-attendance"
+class="section level3">
+<h3>Fit a simple linear regression between park type and attendance</h3>
+<p><img
+src="linear-regression_files/figure-gfm/unnamed-chunk-10-1.png" /><!-- --></p>
+<p>Park type is significantly associated with attendance.
+Amusement/Theme Park has the highest attendance and water park has the
+lowest attendance.</p>
+</div>
+<div id="fit-a-simple-linear-regression-between-region-and-attendance"
+class="section level3">
+<h3>Fit a simple linear regression between region and attendance</h3>
+<p><img
+src="linear-regression_files/figure-gfm/unnamed-chunk-12-1.png" /><!-- --></p>
+<p>Latin America is significantly associated with attendance. Overall,
+there is no apparent linear relationship between region and
+attendance.</p>
+</div>
+</div>
+<div id="fit-a-multiple-linear-regression" class="section level2">
+<h2>Fit a Multiple linear regression</h2>
+<p>Multiple linear regression allows us to account for the influence of
+multiple independent variables on the attendance simultaneously. The
+outcomes of the linear regression analysis suggest that the variable
+“year” exhibits a linear relationship with attendance. Additionally,
+specific categories within the “type” and “region” variables are found
+to be significantly associated with attendance. Thus, variables “year”,
+“type”, and “region” are used to fit a multiple linear regression.</p>
+<pre><code>## 
+## Call:
+## lm(formula = attendance ~ year + type + region, data = data_df)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -45964074 -11813664  -4985390   6989976 161399771 
+## 
+## Coefficients:
+##                                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                     4621928259 1470060108   3.144  0.00173 ** 
+## year                              -2266156     727662  -3.114  0.00192 ** 
+## typeMuseum                       -28938548    2387097 -12.123  &lt; 2e-16 ***
+## typeWater Park                   -31241190    1983578 -15.750  &lt; 2e-16 ***
+## regionEMEA                       -14707744    2635034  -5.582 3.36e-08 ***
+## regionEurope Middle East Africa    9197198    3154499   2.916  0.00366 ** 
+## regionLatin America              -19240504    2955262  -6.511 1.39e-10 ***
+## regionNorth America                1670022    2040565   0.818  0.41339    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 21800000 on 732 degrees of freedom
+## Multiple R-squared:  0.3141, Adjusted R-squared:  0.3075 
+## F-statistic: 47.88 on 7 and 732 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>only North America within region is not significantly associated with
+attendance.</p>
+</div>
+<div id="stepwise-regression" class="section level2">
+<h2>Stepwise regression</h2>
+<p>stepwise regression helps streamline the modeling process by
+automatically including or excluding variables based on statistical
+criteria. We use both backward and forward selection to find the best
+fit model.</p>
+<pre><code>## Start:  AIC=25016.07
+## attendance ~ year + type + region
+## 
+##          Df  Sum of Sq        RSS   AIC
+## &lt;none&gt;                 3.4784e+17 25016
+## - year    1 4.6088e+15 3.5245e+17 25024
+## - region  4 4.0930e+16 3.8877e+17 25090
+## - type    2 1.3329e+17 4.8113e+17 25252
+
+## 
+## Call:
+## lm(formula = attendance ~ year + type + region, data = data_df)
+## 
+## Coefficients:
+##                     (Intercept)                             year  
+##                      4621928259                         -2266156  
+##                      typeMuseum                   typeWater Park  
+##                       -28938548                        -31241190  
+##                      regionEMEA  regionEurope Middle East Africa  
+##                       -14707744                          9197198  
+##             regionLatin America              regionNorth America  
+##                       -19240504                          1670022</code></pre>
+<p>The best fit model with lowest AIC is <span
+class="math inline">\(\widehat{attendance}=\widehat{\beta_0}+\widehat{\beta_1}*year+\widehat{\beta_2}*type+\widehat{\beta_3}*region\)</span>.</p>
+</div>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -397,35 +459,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
