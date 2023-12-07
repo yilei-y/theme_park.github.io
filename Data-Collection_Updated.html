@@ -9,9 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Yueyi Xu" />
 
 
-<title>Data-Collection_Updated</title>
+<title>Data Collection_Updated</title>
 
 <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -29,9 +30,15 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -216,7 +223,73 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
 
 
 
@@ -226,6 +299,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -276,15 +359,47 @@ $(document).ready(function () {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
+
+<h1 class="title toc-ignore">Data Collection_Updated</h1>
+<h4 class="author">Yueyi Xu</h4>
 
 </div>
 
 
-<div id="data-collection_updated" class="section level1">
-<h1>Data Collection_Updated</h1>
-<p>Yueyi Xu 2023-12-05</p>
+<div id="data-collection-and-data-source" class="section level1">
+<h1>Data Collection and Data Source</h1>
+<p>We sourced our data from the “Global Attractions Attendance Report,”
+a publication by AECOM and TEA. The dataset comprises attendance
+information for various theme parks and museums worldwide, covering the
+years 2019 to 2022. You can access the detailed report through this <a
+href="https://aecom.com/wp-content/uploads/documents/reports/AECOM-Theme-Index-2022.pdf">link</a>.</p>
+<div id="data-import-and-cleaning" class="section level3">
+<h3>Data Import and Cleaning</h3>
+<p>Each individual dataset catgegorized by types of parks and regions of
+the parks are listed in the article. By collecting each of the dataset,
+we created separate dataframes and combine to one ultimate dataset with
+all of the data focusing on “Park_Name”, “City”, “Country”, “Year”,
+“Attendance”, “Type”, and “Region”.</p>
+<ul>
+<li>“Park_Name”: Names of the park</li>
+<li>“City”: City of where the park is located</li>
+<li>“Country”: Country of where the park is located</li>
+<li>“Year”: Year of attendance</li>
+<li>“Attendance”: Number of people visited the park</li>
+<li>“Type”: Amusement/Theme Parks, Water Parks, and Museums</li>
+<li>“Region”: Worldwide, North America, Latin America, Asia Pacific,
+Europe Middle East Africa</li>
+</ul>
+</div>
 <div id="import-the-amusementtheme-parks-data-of-worldwide-2019-2022"
 class="section level3">
 <h3>Import the amusement/theme parks data of Worldwide 2019-2022</h3>
@@ -476,6 +591,57 @@ in 2019 to 2022</h3>
     Park_Name, City, Country, Year, Attendance, Type, Region
   )</code></pre>
 </div>
+<div
+id="import-the-amusementtheme-parks-data-of-europe-middle-east-africa"
+class="section level3">
+<h3>Import the amusement/theme parks data of Europe Middle East
+Africa</h3>
+<pre class="r"><code>data_text_tp_emea = &quot;1,DISNEYLAND PARK AT DISNEYLAND PARIS, MARNE-LA-VALLEE, FRANCE,184%,9930,3500,2620,9745
+2,EUROPA-PARK, RUST, GERMANY,80%,5400,3000,2500,5750
+3,DE EFTELING THEME PARK RESORT, KAATSHEUVEL, NETHERLANDS,65%,5430,3300,2900,5260
+4,WALT DISNEY STUDIOS PARK AT DISNEYLAND PARIS, MARNE-LA-VALLEE, FRANCE,183%,5340,1884,1410,5245
+5,TIVOLI GARDENS, COPENHAGEN, DENMARK,61%,3864,2400,1628,4581
+6,PORTAVENTURA WORLD, SALOU, SPAIN,56%,3750,2400,700,3750
+7,LISEBERG, GOTHENBURG, SWEDEN,73%,2500,1447,0,2950
+8,GARDALAND, CASTELNUOVO DEL GARDA, ITALY,34%,2950,2200,1350,2920
+9,LEGOLAND WINDSOR, WINDSOR, U.K.,60%,2400,1500,450,2430
+10,PARC ASTERIX, PLAILLY, FRANCE,102%,2632,1300,1163,2326
+11,PUY DU FOU, LES EPESSES, FRANCE,45%,2342,1616,923,2308
+12,PARQUE WARNER, MADRID, SPAIN,43%,1860,1300,450,2232
+13,ALTON TOWERS, STAFFORDSHIRE, U.K.,28%,2300,1800,670,2130
+14,PHANTASIALAND, BRÜHL, GERMANY,78%,2100,1180,1000,2050
+15,LEGOLAND BILLUND, BILLUND, DENMARK,164%,2242,850,700,1950
+16,THORPE PARK, CHERTSEY, U.K.,-6%,1600,1700,600,1900
+17,FUTUROSCOPE, JAUNAY-CLAN, FRANCE,75%,1920,1100,900,1900
+18,LEGOLAND DEUTSCHLAND, GÜNZBURG, GERMANY,89%,1700,900,750,1700
+19,HEIDE PARK, SOLTAU, GERMANY,23%,1600,1300,950,1700
+20,CHESSINGTON WORLD OF ADVENTURES, CHESSINGTON, U.K.,3%,1500,1450,510,1690&quot;
+
+top20_tp_emea = read.table(text = data_text_tp_emea, sep = &quot;,&quot;, header = FALSE, quote = &quot;&quot;, na.strings = &quot;-&quot;)
+colnames(top20_tp_emea) = c(&quot;id&quot;,&quot;Park_Name&quot;, &quot;City&quot;, &quot;Country&quot;, &quot;%Change&quot;, &quot;2022&quot;, &quot;2021&quot;, &quot;2020&quot;, &quot;2019&quot;)</code></pre>
+</div>
+<div
+id="clean-the-dataset-for-the-top-20-amusementtheme-parks-europe-middle-east-africa-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 20 amusement/theme parks Europe Middle
+East Africa in 2019 to 2022</h3>
+<pre class="r"><code>top20_tp_emea_clean_df =
+  top20_tp_emea |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Amusement/Theme Park&quot;,
+    Region = &quot;EMEA&quot;,
+    Country_State = Country,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, City, Country, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
 <div id="import-water-parks-data-of-north-america-2019-2022"
 class="section level3">
 <h3>Import water parks data of North America 2019-2022</h3>
@@ -604,6 +770,44 @@ class="section level3">
   mutate(
     Type = &quot;Water Park&quot;,
     Region = &quot;Asia Pacific&quot;,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, City, Country, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div id="import-the-water-parks-data-of-europe-middle-east-africa"
+class="section level3">
+<h3>Import the water parks data of Europe Middle East Africa</h3>
+<pre class="r"><code>data_text_wp_emea = &quot;1, THERME ERDING, ERDING, GERMANY, 143%, 1700, 700, 750, 1850
+2, AQUAVENTURE WATER PARK, DUBAI, U.A.E., 88%, 1500, 800, 600, 1322
+3, AQUAPALACE, PRAGUE, CZECH REPUBLIC, 107%, 1200, 580, 537, 1300
+4, TROPICAL ISLANDS, KRAUSNICK, GERMANY, 130%, 1150, 500, 493, 1233
+5, SIAM PARK, SANTA CRUZ DE TENERIFE, SPAIN, 125%, 1150, 511, 97, 1200
+6, AQUALAND MORAVIA, PASOHLÁVKY, CZECH REPUBLIC, 88%, 727, 386, 368, 806
+7, TIKI POOL, DUINRELL, NETHERLANDS, 88%, 750, 400, 390, 800
+8, NETTEBAD, OSNABRÜCK, GERMANY, 87%, 650, 347, 311, 756
+9, WILD WADI, DUBAI, U.A.E., 60%, 750, 470, 350, 740
+10, LALANDIA, BILLUND, DENMARK, 67%, 750, 450, 240, 682&quot;
+top10_wp_emea = read.table(text = data_text_wp_emea, sep = &quot;,&quot;, header = FALSE, quote = &quot;&quot;)
+colnames(top10_wp_emea) = c(&quot;id&quot;,&quot;Park_Name&quot;, &quot;City&quot;, &quot;Country&quot;, &quot;%Change&quot;, &quot;2022&quot;, &quot;2021&quot;, &quot;2020&quot;, &quot;2019&quot;)</code></pre>
+</div>
+<div
+id="clean-the-dataset-for-the-top-10-water-parks-europe-middle-east-africa-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 10 water parks Europe Middle East
+Africa in 2019 to 2022</h3>
+<pre class="r"><code>top10_wp_emea_clean_df =
+  top10_wp_emea |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Water Park&quot;,
+    Region = &quot;EMEA&quot;,
+    Country_State = Country,
     Attendance = Attendance * 10e3
   ) |&gt;
   select(
@@ -802,92 +1006,6 @@ in 2019 to 2022</h3>
     Park_Name, City, Country, Year, Attendance, Type, Region
   )</code></pre>
 </div>
-<div id="import-the-amusementtheme-parks-data-of-emea"
-class="section level3">
-<h3>Import the amusement/theme parks data of EMEA</h3>
-<pre class="r"><code>data_text_tp_emea = &quot;1,DISNEYLAND PARK AT DISNEYLAND PARIS, MARNE-LA-VALLEE, FRANCE,184%,9930,3500,2620,9745
-2,EUROPA-PARK, RUST, GERMANY,80%,5400,3000,2500,5750
-3,DE EFTELING THEME PARK RESORT, KAATSHEUVEL, NETHERLANDS,65%,5430,3300,2900,5260
-4,WALT DISNEY STUDIOS PARK AT DISNEYLAND PARIS, MARNE-LA-VALLEE, FRANCE,183%,5340,1884,1410,5245
-5,TIVOLI GARDENS, COPENHAGEN, DENMARK,61%,3864,2400,1628,4581
-6,PORTAVENTURA WORLD, SALOU, SPAIN,56%,3750,2400,700,3750
-7,LISEBERG, GOTHENBURG, SWEDEN,73%,2500,1447,0,2950
-8,GARDALAND, CASTELNUOVO DEL GARDA, ITALY,34%,2950,2200,1350,2920
-9,LEGOLAND WINDSOR, WINDSOR, U.K.,60%,2400,1500,450,2430
-10,PARC ASTERIX, PLAILLY, FRANCE,102%,2632,1300,1163,2326
-11,PUY DU FOU, LES EPESSES, FRANCE,45%,2342,1616,923,2308
-12,PARQUE WARNER, MADRID, SPAIN,43%,1860,1300,450,2232
-13,ALTON TOWERS, STAFFORDSHIRE, U.K.,28%,2300,1800,670,2130
-14,PHANTASIALAND, BRÜHL, GERMANY,78%,2100,1180,1000,2050
-15,LEGOLAND BILLUND, BILLUND, DENMARK,164%,2242,850,700,1950
-16,THORPE PARK, CHERTSEY, U.K.,-6%,1600,1700,600,1900
-17,FUTUROSCOPE, JAUNAY-CLAN, FRANCE,75%,1920,1100,900,1900
-18,LEGOLAND DEUTSCHLAND, GÜNZBURG, GERMANY,89%,1700,900,750,1700
-19,HEIDE PARK, SOLTAU, GERMANY,23%,1600,1300,950,1700
-20,CHESSINGTON WORLD OF ADVENTURES, CHESSINGTON, U.K.,3%,1500,1450,510,1690&quot;
-
-top20_tp_emea = read.table(text = data_text_tp_emea, sep = &quot;,&quot;, header = FALSE, quote = &quot;&quot;, na.strings = &quot;-&quot;)
-colnames(top20_tp_emea) = c(&quot;id&quot;,&quot;Park_Name&quot;, &quot;City&quot;, &quot;Country&quot;, &quot;%Change&quot;, &quot;2022&quot;, &quot;2021&quot;, &quot;2020&quot;, &quot;2019&quot;)</code></pre>
-</div>
-<div
-id="clean-the-dataset-for-the-top-20-amusementtheme-parks-europe-middle-east-africa-in-2019-to-2022"
-class="section level3">
-<h3>Clean the dataset for the top 20 amusement/theme parks Europe Middle
-East Africa in 2019 to 2022</h3>
-<pre class="r"><code>top20_tp_emea_clean_df =
-  top20_tp_emea |&gt;
-  pivot_longer(
-    (&quot;2019&quot;):(&quot;2022&quot;),
-    names_to = &quot;Year&quot;,
-    values_to = &quot;Attendance&quot;
-  ) |&gt;
-  mutate(
-    Type = &quot;Amusement/Theme Park&quot;,
-    Region = &quot;EMEA&quot;,
-    Country_State = Country,
-    Attendance = Attendance * 10e3
-  ) |&gt;
-  select(
-    Park_Name, City, Country, Year, Attendance, Type, Region
-  )</code></pre>
-</div>
-<div id="import-the-water-parks-data-of-emea" class="section level3">
-<h3>Import the water parks data of EMEA</h3>
-<pre class="r"><code>data_text_wp_emea = &quot;1, THERME ERDING, ERDING, GERMANY, 143%, 1700, 700, 750, 1850
-2, AQUAVENTURE WATER PARK, DUBAI, U.A.E., 88%, 1500, 800, 600, 1322
-3, AQUAPALACE, PRAGUE, CZECH REPUBLIC, 107%, 1200, 580, 537, 1300
-4, TROPICAL ISLANDS, KRAUSNICK, GERMANY, 130%, 1150, 500, 493, 1233
-5, SIAM PARK, SANTA CRUZ DE TENERIFE, SPAIN, 125%, 1150, 511, 97, 1200
-6, AQUALAND MORAVIA, PASOHLÁVKY, CZECH REPUBLIC, 88%, 727, 386, 368, 806
-7, TIKI POOL, DUINRELL, NETHERLANDS, 88%, 750, 400, 390, 800
-8, NETTEBAD, OSNABRÜCK, GERMANY, 87%, 650, 347, 311, 756
-9, WILD WADI, DUBAI, U.A.E., 60%, 750, 470, 350, 740
-10, LALANDIA, BILLUND, DENMARK, 67%, 750, 450, 240, 682&quot;
-top10_wp_emea = read.table(text = data_text_wp_emea, sep = &quot;,&quot;, header = FALSE, quote = &quot;&quot;)
-colnames(top10_wp_emea) = c(&quot;id&quot;,&quot;Park_Name&quot;, &quot;City&quot;, &quot;Country&quot;, &quot;%Change&quot;, &quot;2022&quot;, &quot;2021&quot;, &quot;2020&quot;, &quot;2019&quot;)</code></pre>
-</div>
-<div
-id="clean-the-dataset-for-the-top-10-water-parks-europe-middle-east-africa-in-2019-to-2022"
-class="section level3">
-<h3>Clean the dataset for the top 10 water parks Europe Middle East
-Africa in 2019 to 2022</h3>
-<pre class="r"><code>top10_wp_emea_clean_df =
-  top10_wp_emea |&gt;
-  pivot_longer(
-    (&quot;2019&quot;):(&quot;2022&quot;),
-    names_to = &quot;Year&quot;,
-    values_to = &quot;Attendance&quot;
-  ) |&gt;
-  mutate(
-    Type = &quot;Water Park&quot;,
-    Region = &quot;EMEA&quot;,
-    Country_State = Country,
-    Attendance = Attendance * 10e3
-  ) |&gt;
-  select(
-    Park_Name, City, Country, Year, Attendance, Type, Region
-  )</code></pre>
-</div>
 <div id="combine-all-dataset" class="section level3">
 <h3>Combine all dataset</h3>
 <pre class="r"><code>combine_df = 
@@ -901,6 +1019,8 @@ Africa in 2019 to 2022</h3>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -932,7 +1052,41 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
