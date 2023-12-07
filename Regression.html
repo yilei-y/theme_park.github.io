@@ -331,6 +331,15 @@ div.tocify {
   <a href="about.html">About</a>
 </li>
 <li>
+  <a href="Data-Collection_Updated.html">Data Collection</a>
+</li>
+<li>
+  <a href="theme_zz.html">EDA</a>
+</li>
+<li>
+  <a href="Regression.html">Regression</a>
+</li>
+<li>
   <a href="mailto:&lt;you@youremail.com&gt;">
     <span class="fa fa-envelope fa-lg"></span>
      
@@ -372,25 +381,25 @@ and region). It assumes that this relationship is linear, meaning
 changes in the predictors are associated with a constant change in the
 response. We first fit linear regression of each predictors to check if
 they are associated with attendance.</p>
-<div id="fit-a-simple-linear-regression-between-city-and-attendance"
+<div id="relationship-between-city-and-attendance"
 class="section level2">
-<h2>Fit a simple linear regression between city and attendance</h2>
+<h2>Relationship between city and attendance</h2>
 <p><img src="Regression_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>a few cities are associated with attendance such as ANAHEIM, Beijing,
 UNIVERSAL CITY, TOKYO, VATICAN. In general, there is no apparent linear
 relationship between city and attendance.</p>
 </div>
-<div id="fit-a-simple-linear-regression-between-country-and-attendance"
+<div id="relationship-between-country-and-attendance"
 class="section level2">
-<h2>Fit a simple linear regression between country and attendance</h2>
+<h2>Relationship between country and attendance</h2>
 <p><img src="Regression_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>only one country Japan is significantly associated with attendance.
 In general, there is no apparent linear relationship between country and
 attendance.</p>
 </div>
-<div id="fit-a-simple-linear-regression-between-year-and-attendance"
+<div id="relationship-between-year-and-attendance"
 class="section level2">
-<h2>Fit a simple linear regression between year and attendance</h2>
+<h2>Relationship between year and attendance</h2>
 <pre><code>## 
 ## Call:
 ## lm(formula = attendance ~ year, data = data_df)
@@ -418,18 +427,17 @@ class="math inline">\(\widehat{attendance}=6104922321-3011254*year\)</span>.</p>
 linear relationship between year and attendance. Attendance has
 experienced a decline from 2019 to 2022.</p>
 </div>
-<div
-id="fit-a-simple-linear-regression-between-park-type-and-attendance"
+<div id="relationship-between-park-type-and-attendance"
 class="section level2">
-<h2>Fit a simple linear regression between park type and attendance</h2>
+<h2>Relationship between park type and attendance</h2>
 <p><img src="Regression_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>Park type is significantly associated with attendance.
 Amusement/Theme Park has the highest attendance and water park has the
 lowest attendance.</p>
 </div>
-<div id="fit-a-simple-linear-regression-between-region-and-attendance"
+<div id="relationship-between-region-and-attendance"
 class="section level2">
-<h2>Fit a simple linear regression between region and attendance</h2>
+<h2>Relationship between region and attendance</h2>
 <p><img src="Regression_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Latin America is significantly associated with attendance. Overall,
 there is no apparent linear relationship between region and
