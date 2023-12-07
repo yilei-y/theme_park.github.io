@@ -21,13 +21,13 @@ We sourced our data from the "Global Attractions Attendance Report," a publicati
 ### Data Import and Cleaning
 Each individual dataset catgegorized by types of parks and regions of the parks are listed in the article. By collecting each of the dataset, we created separate dataframes and combine to one ultimate dataset with all of the data focusing on "Park_Name", "City", "Country", "Year", "Attendance", "Type", and "Region".
 
-"Park_Name": Names of the park
-"City": City of where the park is located
-"Country": Country of where the park is located
-"Year": Year of attendance
-"Attendance": Number of people visited the park
-"Type": Amusement/Theme Parks, Water Parks, and Museums
-"Region": Worldwide, North America, Latin America, Asia Pacific, Europe Middle East Africa
+* "Park_Name": Names of the park
+* "City": City of where the park is located
+* "Country": Country of where the park is located
+* "Year": Year of attendance
+* "Attendance": Number of people visited the park
+* "Type": Amusement/Theme Parks, Water Parks, and Museums
+* "Region": Worldwide, North America, Latin America, Asia Pacific, Europe Middle East Africa
 
 
 ### Import the amusement/theme parks data of Worldwide 2019-2022
