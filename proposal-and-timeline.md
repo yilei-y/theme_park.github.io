@@ -39,7 +39,7 @@ of the impact of pandemic on theme parks and museums and comparison
 
 ## The anticipated data sources:
 
-<https://aecom.com/wp-content/uploads/documents/reports/AECOM-Theme-Index-2021.pdf>
+<https://aecom.com/wp-content/uploads/documents/reports/AECOM-Theme-Index-2022.pdf>
 
 ## The planned analyses / visualizations / coding challenges:
 
