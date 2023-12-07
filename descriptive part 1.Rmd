@@ -1,0 +1,126 @@
+---
+title: "Exploratory Analysis"
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(plotly)
+library(viridis)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+```
+
+After tidying our data set, an exploratory analysis is conducted to look for possible predictors for the `Attendance` outcome. 
+
+```{r, include=FALSE}
+theme_park = read_csv("ultimate data.csv") |> 
+    mutate(
+    Year = as.factor(Year),
+    Type = as.factor(Type)
+  ) |> 
+    filter(
+      Region != c("Worldwide")
+    ) 
+```
+
+## Descriptive Analysis for All Data: 
+
+### Total Attendance by Type from 2019 to 2022
+
+A brief summary of attendance based on the `Type` variable is provided below:
+
+```{r region attend summary}
+theme_park  |> 
+    group_by(Year, Type) |> 
+    mutate(
+      Attendance = Attendance / 100000
+    ) |> 
+    summarise(sum = sum(Attendance)) |> 
+    arrange(Type) |> 
+    pivot_wider(
+      names_from = Type,
+      values_from = sum
+    ) |> 
+    knitr::kable(digits = 3, caption = c("Summary of Attendance for Three Types of Facilities From 2019 to 2022"))
+```
+
+From this table, some observed patterns are:
+
+* A common decreasing trend of attendance from 2019 and 2020
+* A common increasing trend of attendance from 2020 and 2022
+
+The distribution of data by year is further visualized into the box plots below:
+
+```{r}
+theme_park |> 
+  group_by(Year) |> 
+  plot_ly(y = ~Attendance, color = ~Year, type = "box", colors = "viridis") |> 
+  layout(annotations = 
+ list(x = 1, y =1, text = "Plot 1: Distribution of Attendance by Year", 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+      font=list(size=15))
+ )
+```
+
+* Overall high attendance in 2019 and low attendance in 2020
+* Common outliers in the distribution of attendance for each year
+
+### Total Attendance by Region from 2019 to 2022
+
+Next, we specifically look at the trend of `Attendance` from 2019 to 2022 based on the `Region` variable. 
+
+```{r}
+ theme_park|> 
+  group_by(Region, Year)  |> 
+  summarize(attend_sum = mean(Attendance)) |> 
+  plot_ly(x = ~Year, y = ~attend_sum, color = ~Region,
+          type = "scatter", mode = 'point', colors = "viridis") |> 
+    layout(annotations = 
+ list(x = 1, y = 1, text = "Plot 2: Change in Attendance for Each Region", 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+      font=list(size=15))
+ )
+```
+```
+
+* Similar attendance fluctuation for most regions
+* Only EMEA has an attendance drop from 2021 to 2022
+
+## ANOVA TEST
+
+### Based on Type of Facilities
+
+The first ANOVA test focuses on the `Type` variable in our data set. The null hypothesis and alternative hypothesis are listed as follow:
+
+$$H_0: \mu_{\text{Amusement/Theme Park}} = \mu_{\text{Water Park}} = \mu_{\text{Museum}} ~~ \text{vs} ~~ H_1: \text{at least two means are not equal}$$
+
+```{r}
+
+anova_1 = aov(Attendance ~ Type, data = theme_park)
+
+summary(anova_1)
+
+```
+
+With a p-value of less than 2e-16, we would reject the null hypothesis. We have evidence that at least
+two of the means are not equal. Meaning the mean attendance among type groups is different
+for at least two groups in the `Type` variable.
+
