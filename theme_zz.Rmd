@@ -123,26 +123,26 @@ Looking at the plot 1, we found that there was too much data for outliers, so we
 #| message: false
 theme_full|> 
   filter(Region == "Worldwide") |> 
-  group_by(Country) |> 
-  summarise(sumattand = sum(Attendance)) |> 
-  plot_ly(x = ~ Country, y = ~ sumattand, color = ~ Country, type = "bar", colors = "viridis", alpha = 0.5) |> 
+  group_by(Year) |> 
+  plot_ly(x = ~ Year, y = ~ Attendance, color = ~ Country, type = "bar", colors = "viridis", alpha = 0.5) |> 
   layout(annotations = 
- list(x = 1, y =1.02, text = "Plot 3: Distribution of Attendance by Country", 
+ list(x = 1, y =1.04, text = "Plot 3: Distribution of Attendance by different Country in different year", 
       showarrow = F, xref='paper', yref='paper', 
       xanchor='right', yanchor='auto', xshift=0, yshift=0,
       font=list(size=15))
  )
 ```
 
-We use "Worldwide" to rank the top 25 theme parks by total number of visitors in different countries. According to the icon, we can get:
+We use "Worldwide" to rank the top 25 theme parks by total number of visitors in different countries in different year. According to the icon, we can get:
 
 * The total number of tourists from U.S. is the largest from 2019 to 2022, followed by China and Japan in third place.
 
-* Russina, Germany and Spain have the lowest total tourist arrivals in 2019-2022.
+* Russia, Germany and Spain have the lowest total tourist arrivals in 2019-2022.
 
-```{r}
+* Based on comparisons between different years, we found that the number of tourists dropped sharply from 2019 to 2020. The number of tourists from 2020 to 2022 is slowly returning to normal, but it is not as high as before the epidemic.
 
-```
+
+
 ## ANOVA test
 
 ### Based on Type of Facilities
