@@ -1,6 +1,5 @@
 ---
 title: "Impact of the Pandemic on the Attendance of Theme Parks/Museums Worldwide"
-author: "Yueyi Xu, Zixuan Zhang, Yilei Yang, Jixin Li, Peng Su"
 output: 
   html_document:
     toc: true
@@ -24,7 +23,7 @@ The main question we are trying to understand is what is the overall  Impact of 
 
 ## Data Collection and cleaning
 
-```{r setup, include=FALSE}
+```{r include=FALSE}
 library(tidyverse)
 library(dplyr)
 library(readxl)
@@ -32,23 +31,22 @@ library(openxlsx)
 ```
 
 ### Data Collection and Data Source
-Our data was collected from the “Global Attractions Attendance Report” which was published by AECOM and TEA. We included the attendance data of different Theme parks and Museums worldwide from 2019 to 2022. The article can be found here.
-https://aecom.com/wp-content/uploads/documents/reports/AECOM-Theme-Index-2022.pdf
+We sourced our data from the *"Global Attractions Attendance Report"*, a publication by AECOM and TEA. The dataset comprises attendance information for various theme parks and museums worldwide, covering the years 2019 to 2022. You can access the detailed report through this [link](https://aecom.com/wp-content/uploads/documents/reports/AECOM-Theme-Index-2022.pdf).
 
 ### Data Import and Cleaning
-Each individual dataset catgegorized by types of parks and regions of the parks are listed in the article. By collecting each of the dataset, we created separate dataframes and combine to one ultimate dataset with all of the data focusing on "Park_Name", "City", "Country", "Year", "Attendance", "Type", and "Region".
+Each individual dataset catgegorized by types of parks and regions of the parks are listed in the article. By collecting each of the dataset, we created separate dataframes and combine to one ultimate dataset with all of the data focusing on `Park_Name`, `City`, `Country`, `Year`, `Attendance`, `Type`, and `Region`.
 
-"Park_Name": Names of the park
-"City": City of where the park is located
-"Country": Country of where the park is located
-"Year": Year of attendance
-"Attendance": Number of people visited the park
-"Type": Amusement/Theme Parks, Water Parks, and Museums
-"Region": Worldwide, North America, Latin America, Asia Pacific, Europe Middle East Africa
+* `Park_Name`: Names of the park
+* `City`: City of where the park is located
+* `Country`: Country of where the park is located
+* `Year`: Year of attendance
+* `Attendance`: Number of people visited the park
+* `Type`: Amusement/Theme Parks, Water Parks, and Museums
+* `Region`: Worldwide, North America, Latin America, Asia Pacific, Europe Middle East Africa
 
 
-### Import the amusement/theme parks data of Worldwide 2019-2022
-```{r, echo=FALSE}
+#### Import the amusement/theme parks data of Worldwide 2019-2022
+```{r, echo=TRUE}
 data_text_tp_ww = "1, MAGIC KINGDOM THEME PARK AT WALT DISNEY WORLD RESORT, LAKE BUENA VISTA, U.S., 35%, 17133, 12691, 6941, 20963
 2, DISNEYLAND PARK AT DISNEYLAND RESORT, ANAHEIM, U.S., 97%, 16881, 8573, 3674, 18666
 3, TOKYO DISNEYLAND AT TOKYO DISNEY RESORT, TOKYO, JAPAN, 90%, 12000, 6300, 4160, 17910
@@ -80,7 +78,7 @@ colnames(top25_tp_ww) = c("id","Park_Name", "City", "Country", "%Change", "2022"
 ```
 
 
-### Clean the dataset for the top 25 amusement/theme parks Worldwide in 2019 to 2022
+#### Clean the dataset for the top 25 amusement/theme parks Worldwide in 2019 to 2022
 ```{r, echo=TRUE}
 top25_tp_ww_clean_df =
   top25_tp_ww |>
@@ -100,8 +98,8 @@ top25_tp_ww_clean_df =
 ```
 
 
-### Import the amusement/theme parks data of North America 2019-2022
-```{r, echo=FALSE}
+#### Import the amusement/theme parks data of North America 2019-2022
+```{r, echo=TRUE}
 data_text_tp_na = "1, MAGIC KINGDOM THEME PARK AT WALT DISNEY WORLD, LAKE BUENA VISTA, FL, U.S., 35%, 17133, 12691, 6941, 20963
 2, DISNEYLAND PARK AT DISNEYLAND RESORT, ANAHEIM, CA, U.S., 97%, 16881, 8573, 3674, 18666
 3, DISNEY'S ANIMAL KINGDOM AT WALT DISNEY WORLD, LAKE BUENA VISTA, FL, U.S., 25%, 9027, 7194, 4166, 13888
@@ -128,7 +126,7 @@ colnames(top20_tp_na) = c("id","Park_Name", "City", "State", "Country", "%Change
 ```
 
 
-### Clean the dataset for the top 20 amusement/theme parks North America in 2019 to 2022
+#### Clean the dataset for the top 20 amusement/theme parks North America in 2019 to 2022
 ```{r, echo=TRUE}
 top20_tp_na_clean_df =
   top20_tp_na |>
@@ -148,8 +146,8 @@ top20_tp_na_clean_df =
 ```
 
 
-### Import the amusement/theme parks data of Latin America 2019-2022
-```{r, echo=FALSE}
+#### Import the amusement/theme parks data of Latin America 2019-2022
+```{r, echo=TRUE}
 data_text_tp_la = "1,SIX FLAGS MEXICO, MEXICO CITY, MEXICO, 54%, 1727, 1125, 701, 2803
 2,BETO CARRERO WORLD, SANTA CATARINA, BRAZIL, 23%, 2327, 1895, 1252, 2241
 3,PARQUE XCARET, CANCUN, MEXICO, 27%, 1399, 1104, 736, 1960
@@ -166,7 +164,7 @@ colnames(top10_tp_la) = c("id","Park_Name", "City", "Country", "%Change", "2022"
 ```
 
 
-### Clean the dataset for the top 10 amusement/theme parks Latin America in 2019 to 2022
+#### Clean the dataset for the top 10 amusement/theme parks Latin America in 2019 to 2022
 ```{r, echo=TRUE}
 top10_tp_la_clean_df =
   top10_tp_la |>
@@ -186,8 +184,8 @@ top10_tp_la_clean_df =
 ```
 
 
-### Import the amusement/theme parks data of Asia Pacific 2019-2022
-```{r, echo=FALSE}
+#### Import the amusement/theme parks data of Asia Pacific 2019-2022
+```{r, echo=TRUE}
 data_text_tp_apac = "1, TOKYO DISNEYLAND AT TOKYO DISNEY RESORT, TOKYO, JAPAN, 90%, 12000, 6300, 4160, 17910
 2, TOKYO DISNEYSEA AT TOKYO DISNEY RESORT, TOKYO, JAPAN, 74%, 10100, 5800, 3400, 14650
 3, UNIVERSAL STUDIOS JAPAN, OSAKA, JAPAN, 125%, 12350, 5500, 4901, 14500
@@ -214,7 +212,7 @@ colnames(top20_tp_apac) = c("id","Park_Name", "City", "Country", "%Change", "202
 ```
 
 
-### Clean the dataset of the top 20 Amusement/Theme Parks Asia Pacific in 2019 to 2022
+#### Clean the dataset of the top 20 Amusement/Theme Parks Asia Pacific in 2019 to 2022
 ```{r, echo=TRUE}
 top20_tp_apac_clean_df =
   top20_tp_apac |>
@@ -234,8 +232,8 @@ top20_tp_apac_clean_df =
 ```
 
 
-### Import the amusement/theme parks data of EMEA
-```{r, echo=FALSE}
+#### Import the amusement/theme parks data of Europe Middle East Africa
+```{r, echo=TRUE}
 data_text_tp_emea = "1,DISNEYLAND PARK AT DISNEYLAND PARIS, MARNE-LA-VALLEE, FRANCE,184%,9930,3500,2620,9745
 2,EUROPA-PARK, RUST, GERMANY,80%,5400,3000,2500,5750
 3,DE EFTELING THEME PARK RESORT, KAATSHEUVEL, NETHERLANDS,65%,5430,3300,2900,5260
@@ -262,7 +260,7 @@ colnames(top20_tp_emea) = c("id","Park_Name", "City", "Country", "%Change", "202
 ```
 
 
-### Clean the dataset for the top 20 amusement/theme parks Europe Middle East Africa in 2019 to 2022
+#### Clean the dataset for the top 20 amusement/theme parks Europe Middle East Africa in 2019 to 2022
 ```{r, echo=TRUE}
 top20_tp_emea_clean_df =
   top20_tp_emea |>
@@ -283,8 +281,8 @@ top20_tp_emea_clean_df =
 ```
 
 
-### Import water parks data of North America 2019-2022
-```{r, echo=FALSE}
+#### Import water parks data of North America 2019-2022
+```{r, echo=TRUE}
 data_text_wp_na = "1,DISNEY'S TYPHOON LAGOON WATER PARK AT WALT DISNEY WORLD RESORT, ORLANDO, FL, U.S., 0%, 1915, 0, 0, 2248
 2,DISNEY'S BLIZZARD BEACH WATER PARK AT WALT DISNEY WORLD RESORT, ORLANDO, FL, U.S., -92%, 101, 1201, 316, 1983
 3,UNIVERSAL'S VOLCANO BAY, ORLANDO, FL, U.S., 9%, 1850, 1691, 551, 1811
@@ -311,7 +309,7 @@ colnames(top20_wp_na) = c("id","Park_Name", "City", "State", "Country", "%Change
 ```
 
 
-### Clean the dataset for the top 20 water parks North America in 2019 to 2022
+#### Clean the dataset for the top 20 water parks North America in 2019 to 2022
 ```{r, echo=TRUE}
 top20_wp_na_clean_df =
   top20_wp_na |>
@@ -331,8 +329,8 @@ top20_wp_na_clean_df =
 ```
 
 
-### Import water parks data of Latin America 2019-2022
-```{r, echo=FALSE}
+#### Import water parks data of Latin America 2019-2022
+```{r, echo=TRUE}
 data_text_wp_la = "1, THERMAS DOS LARANJAIS, OLIMPIA, BRAZIL, 47%, 1729, 1179, 922, 1845
 2, BAHAMAS AQUAVENTURE WATER PARK, PARADISE ISLAND (NASSAU NEW PROVIDENCE), BAHAMAS, 38%, 1751, 1269, 494, 1813
 3, HOT PARK RIO QUENTE, RIO QUENTE, BRAZIL, 53%, 1430, 933, 734, 1469
@@ -349,7 +347,7 @@ colnames(top10_wp_la) = c("id","Park_Name", "City", "Country", "%Change", "2022"
 ```
 
 
-### Clean the dataset for the top 10 water parks Latin America in 2019 to 2022
+#### Clean the dataset for the top 10 water parks Latin America in 2019 to 2022
 ```{r, echo=TRUE}
 top10_wp_la_clean_df =
   top10_wp_la |>
@@ -369,9 +367,8 @@ top10_wp_la_clean_df =
 ```
 
 
-
-### Import water parks data of Asia Pacific 2019-2022
-```{r, echo=FALSE}
+#### Import water parks data of Asia Pacific 2019-2022
+```{r, echo=TRUE}
 data_text_wp_apac = "1, CHIMELONG WATER PARK, GUANGZHOU, CHINA, -27%, 1620, 2230, 1512, 3014
 2, WUHU FANTAWILD WATER PARK, WUHU, CHINA, 115%, 928, 431, 770, 1348
 3, CARIBBEAN BAY, SEOUL, SOUTH KOREA, 348%, 995, 222, 168, 1333
@@ -398,7 +395,7 @@ colnames(top20_wp_apac) = c("id","Park_Name", "City", "Country", "%Change", "202
 ```
 
 
-### Clean the dataset for the top 20 water parks Asia Pacific in 2019 to 2022
+#### Clean the dataset for the top 20 water parks Asia Pacific in 2019 to 2022
 ```{r, echo=TRUE}
 top20_wp_apac_clean_df =
   top20_wp_apac |>
@@ -418,8 +415,8 @@ top20_wp_apac_clean_df =
 ```
 
 
-### Import the water parks data of EMEA
-```{r, echo=FALSE}
+#### Import the water parks data of Europe Middle East Africa
+```{r, echo=TRUE}
 data_text_wp_emea = "1, THERME ERDING, ERDING, GERMANY, 143%, 1700, 700, 750, 1850
 2, AQUAVENTURE WATER PARK, DUBAI, U.A.E., 88%, 1500, 800, 600, 1322
 3, AQUAPALACE, PRAGUE, CZECH REPUBLIC, 107%, 1200, 580, 537, 1300
@@ -435,7 +432,7 @@ colnames(top10_wp_emea) = c("id","Park_Name", "City", "Country", "%Change", "202
 ```
 
 
-### Clean the dataset for the top 10 water parks Europe Middle East Africa in 2019 to 2022
+#### Clean the dataset for the top 10 water parks Europe Middle East Africa in 2019 to 2022
 ```{r, echo=TRUE}
 top10_wp_emea_clean_df =
   top10_wp_emea |>
@@ -456,8 +453,8 @@ top10_wp_emea_clean_df =
 ```
 
 
-### Import museums data of Worldwide 2019-2022
-```{r, echo=FALSE}
+#### Import museums data of Worldwide 2019-2022
+```{r, echo=TRUE}
 data_text_mu_ww = "1, LOUVRE, PARIS, FRANCE, 173%, 7726, 2825, 2700, 9600
 2, NATIONAL MUSEUM OF CHINA, BEIJING, CHINA, -31%, 1631, 2378, 1600, 7390
 3, VATICAN MUSEUMS, VATICAN, VATICAN CITY, 215%, 5081, 1613, 1300, 6883
@@ -484,7 +481,7 @@ colnames(top20_mu_ww) = c("id","Park_Name", "City", "Country", "%Change", "2022"
 ```
 
 
-### Clean the dataset for the top 20 museums Worldwide in 2019 to 2022
+#### Clean the dataset for the top 20 museums Worldwide in 2019 to 2022
 ```{r, echo=TRUE}
 top20_mu_ww_clean_df =
   top20_mu_ww |>
@@ -504,8 +501,8 @@ top20_mu_ww_clean_df =
 ```
 
 
-### Import museums data of North America 2019-2022
-```{r, echo=FALSE}
+#### Import museums data of North America 2019-2022
+```{r, echo=TRUE}
 data_text_mu_na = "1, THE METROPOLITAN MUSEUM OF ART, NEW YORK, NY, U.S., 64%, 3209, 1958, 1125, 6770
 2, AMERICAN MUSEUM OF NATURAL HISTORY, NEW YORK, NY, U.S., 0, 0, 0, 0, 5000
 3, NATIONAL MUSEUM OF NATURAL HISTORY, WASHINGTON, DC, U.S., 297%, 3900, 982, 573, 4200
@@ -532,7 +529,7 @@ colnames(top20_mu_na) = c("id","Park_Name", "City", "State", "Country", "%Change
 ```
 
 
-### Clean the dataset for the top 20 museums North America in 2019 to 2022
+#### Clean the dataset for the top 20 museums North America in 2019 to 2022
 ```{r, echo=TRUE}
 top20_mu_na_clean_df =
   top20_mu_na |>
@@ -552,8 +549,8 @@ top20_mu_na_clean_df =
 ```
 
 
-### Import museums data of Asia Pacific 2019-2022
-```{r, echo=FALSE}
+#### Import museums data of Asia Pacific 2019-2022
+```{r, echo=TRUE}
 data_text_mu_apac = "1, NATIONAL MUSEUM OF CHINA, BEIJING, CHINA, -31%, 1631, 2378, 1600, 7390
 2, SHANGHAI SCIENCE & TECHNOLOGY MUSEUM, SHANGHAI, CHINA, -79%, 494, 2368, 1351, 4824
 3, NANJING MUSEUM, NANJING, CHINA, -21%, 1610, 2034, 1515, 4169
@@ -580,7 +577,7 @@ colnames(top20_mu_apac) = c("id","Park_Name", "City", "Country", "%Change", "202
 ```
 
 
-### Clean the dataset for the top 20 museums Asia Pacific in 2019 to 2022
+#### Clean the dataset for the top 20 museums Asia Pacific in 2019 to 2022
 ```{r, echo=TRUE}
 top20_mu_apac_clean_df =
   top20_mu_apac |>
@@ -600,8 +597,8 @@ top20_mu_apac_clean_df =
 ```
 
 
-### Import museums data of Europe Middle East Africa 2019-2022
-```{r, echo=FALSE}
+#### Import museums data of Europe Middle East Africa 2019-2022
+```{r, echo=TRUE}
 data_text_mu_emea = "1, LOUVRE, PARIS, FRANCE, 173%, 7726, 2825, 2700, 9600
 2, VATICAN MUSEUMS, VATICAN, VATICAN CITY, 215%, 5081, 1613, 1300, 6883
 3, BRITISH MUSEUM, LONDON, U.K., 209%, 4097, 1327, 1275, 6208
@@ -628,7 +625,7 @@ colnames(top20_mu_emea) = c("id","Park_Name", "City", "Country", "%Change", "202
 ```
 
 
-### Clean the dataset for the top 20 museums Europe Middle East Africa in 2019 to 2022
+#### Clean the dataset for the top 20 museums Europe Middle East Africa in 2019 to 2022
 ```{r, echo=TRUE}
 top20_mu_emea_clean_df =
   top20_mu_emea |>
@@ -648,8 +645,6 @@ top20_mu_emea_clean_df =
 ```
 
 
-
-
 ### Combine all dataset
 ```{r, echo=TRUE}
 combine_df = 
@@ -662,4 +657,504 @@ combine_df =
 write.csv(combine_df, "ultimate data.csv", row.names = FALSE)
 ```
 
+## Exploratory analysis
 
+```{r, include = FALSE}
+library(tidyverse)
+library(plotly)
+library(viridis)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+```
+
+After tidying our data set, an exploratory analysis is conducted to look for possible predictors for the `Attendance` outcome. 
+
+```{r, include=FALSE}
+theme_park = read_csv("ultimate data.csv") |> 
+    mutate(
+    Year = as.factor(Year),
+    Type = as.factor(Type)
+  ) |> 
+    filter(
+      Region != c("Worldwide")
+    ) 
+```
+
+### Descriptive Analysis for All Data
+
+#### Total Attendance by Type from 2019 to 2022
+
+A brief summary of attendance based on the `Type` variable is provided below:
+
+```{r region attend summary,message = FALSE, echo = FALSE}
+theme_park  |> 
+    group_by(Year, Type) |> 
+    mutate(
+      Attendance = Attendance / 100000
+    ) |> 
+    summarise(sum = sum(Attendance)) |> 
+    arrange(Type) |> 
+    pivot_wider(
+      names_from = Type,
+      values_from = sum
+    ) |> 
+    knitr::kable(digits = 3, caption = c("Summary of Attendance for Three Types of Facilities From 2019 to 2022"))
+```
+
+From this table, some observed patterns are:
+
+* A common decreasing trend of attendance from 2019 and 2020
+* A common increasing trend of attendance from 2020 and 2022
+
+The distribution of data by year is further visualized into the box plots below:
+
+```{r}
+theme_park |> 
+  group_by(Year) |> 
+  plot_ly(y = ~Attendance, color = ~Year, type = "box", colors = "viridis") |> 
+  layout(annotations = 
+ list(x = 1, y =1, text = "Plot 1: Distribution of Attendance by Year", 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+      font=list(size=15))
+ )
+```
+
+* Overall high attendance in 2019 and low attendance in 2020
+* Common outliers in the distribution of attendance for each year
+
+#### Total Attendance by Region from 2019 to 2022
+
+Next, we specifically look at the trend of `Attendance` from 2019 to 2022 based on the `Region` variable. 
+
+```{r, message = FALSE, echo = FALSE}
+ theme_park|> 
+  group_by(Region, Year)  |> 
+  summarize(attend_sum = mean(Attendance)) |> 
+  plot_ly(x = ~Year, y = ~attend_sum, color = ~Region,
+          type = "scatter", mode = 'point', colors = "viridis") |> 
+    layout(annotations = 
+ list(x = 1, y = 1, text = "Plot 2: Change in Attendance for Each Region", 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+      font=list(size=15))
+ )
+```
+
+* Similar attendance fluctuation for most regions
+* Only EMEA has an attendance drop from 2021 to 2022
+
+### Descriptive Analysis For All Data （Worldwide Top 25)
+
+```{r, message = FALSE, echo = FALSE}
+theme_full = 
+  read_csv("ultimate data.csv")
+```
+
+#### Top 25 theme park from worldwide's sum attendance by different country.
+
+Looking at the plot 1, we found that there was too much data for outliers, so we did another data analysis based on Top 25 theme park, which is labled as Worldwide on the region variable.
+```{r}
+#| echo: false
+#| message: false
+theme_full|> 
+  filter(Region == "Worldwide") |> 
+  group_by(Year) |> 
+  plot_ly(x = ~ Year, y = ~ Attendance, color = ~ Country, type = "bar", colors = "viridis", alpha = 0.5) |> 
+  layout(annotations = 
+ list(x = 1, y =1.04, text = "Plot 3: Distribution of Attendance by different Country in different year", 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+      font=list(size=15))
+ )
+```
+
+We use "Worldwide" to rank the top 25 theme parks by total number of visitors in different countries in different year. According to the icon, we can get:
+
+* The total number of tourists from U.S. is the largest from 2019 to 2022, followed by China and Japan in third place.
+
+* Russia, Germany and Spain have the lowest total tourist arrivals in 2019-2022.
+
+* Based on comparisons between different years, we found that the number of tourists dropped sharply from 2019 to 2020. The number of tourists from 2020 to 2022 is slowly returning to normal, but it is not as high as before the epidemic.
+
+### ANOVA test
+
+#### Based on Type of Facilities
+
+The first ANOVA test focuses on the `Type` variable in our data set. The null hypothesis and alternative hypothesis are listed as follow:
+
+$$H_0: \mu_{\text{Amusement/Theme Park}} = \mu_{\text{Water Park}} = \mu_{\text{Museum}} ~~ \text{vs} ~~ H_1: \text{at least two means are not equal}$$
+```{r}
+
+anova_1 = aov(Attendance ~ Type, data = theme_park)
+
+summary(anova_1)
+
+```
+
+With a p-value of less than 2e-16, we would reject the null hypothesis. We have evidence that at least
+two of the means are not equal. Meaning the mean attendance among type groups is different
+for at least two groups in the `Type` variable.
+
+#### Based on thr Type of Year
+The Second ANOVA test focuses on the `Year` variable in our data set. The null hypothesis and alternative hypothesis are listed as follow:
+
+$$H_0: \mu_{\text{2019}} = \mu_{\text{2020}} = \mu_{\text{2021}}= \mu_{\text{2022}} ~~ \text{vs} ~~ H_1: \text{at least two means are not equal}$$
+```{r}
+
+dat = 
+  theme_full |> 
+  filter(
+    Region != c("Worldwide")
+    ) |> 
+  mutate(
+    Year = as.factor(Year)
+  ) 
+
+anova2 = aov(Attendance ~ Year , data = dat) 
+
+summary(anova2)
+
+```
+With a p-value of less than 2e-16, we would reject the null hypothesis. We have evidence that at least two of the means are not equal. Meaning the mean attendance among year groups is different for at least two groups.
+
+## Regression Analysis
+
+```{r, include=FALSE}
+library(tidyverse)
+```
+
+```{r, include=FALSE}
+data_df =
+  read_csv("ultimate data.csv") |>
+  janitor::clean_names() |>
+  select(attendance, everything()) |>
+  filter(!region == "Worldwide")
+```
+
+### Linear Regression
+Linear regression is used to model the relationship between attendance and five independent variables (city, country, year, type, and region). It assumes that this relationship is linear, meaning changes in the predictors are associated with a constant change in the response. We first fit linear regression of each predictors to check if they are associated with attendance.
+
+#### Relationship between city and attendance
+```{r, include=FALSE}
+city_fit = lm(attendance ~ city, data = data_df) 
+summary(city_fit)
+```
+
+```{r, message = FALSE, echo = FALSE}
+data_df |>
+  ggplot(aes(city, attendance)) + geom_point(color='pink') + 
+  theme_bw() +
+  geom_smooth(method='lm', se=FALSE, color='orange') +
+  labs(x="City", y="Attendance ")
+```
+
+a few cities are associated with attendance such as ANAHEIM, Beijing, UNIVERSAL CITY, TOKYO, VATICAN. In general, there is no apparent linear relationship between city and attendance.
+
+#### Relationship between country and attendance
+```{r, include=FALSE}
+country_fit = lm(attendance ~ country, data = data_df) 
+summary(country_fit)
+```
+
+```{r, message = FALSE, echo = FALSE}
+data_df |>
+  ggplot(aes(country, attendance)) + geom_point(color='pink') + 
+  theme_bw() +
+  geom_smooth(method='lm', se=FALSE, color='orange') +
+  labs(x="Country", y="Attendance ")
+```
+
+only one country Japan is significantly associated with attendance. In general, there is no apparent linear relationship between country and attendance. 
+
+#### Relationship between year and attendance
+```{r, message = FALSE, echo = FALSE}
+year_fit = lm(attendance ~ year, data = data_df) 
+summary(year_fit)
+```
+
+according to the summary of linear regression, $\widehat{Y}=\widehat{\beta_0}+\widehat{\beta_1}*X$.
+Linear Model: $\widehat{attendance}=6104922321-3011254*year$.
+
+```{r, message = FALSE, echo = FALSE}
+data_df |>
+  ggplot(aes(year, attendance)) + geom_point(color='pink') + 
+  theme_bw() +
+  geom_smooth(method='lm', se=FALSE, color='orange') +
+  labs(x="Year", y="Attendance ")
+```
+
+Year is significantly associated with attendance, and there is a linear relationship between year and attendance. Attendance has experienced a decline from 2019 to 2022. 
+
+#### Relationship between park type and attendance
+```{r, include=FALSE}
+type_fit = lm(attendance ~ type, data = data_df) 
+summary(type_fit)
+```
+
+```{r, message = FALSE, echo = FALSE}
+data_df |>
+  ggplot(aes(type, attendance)) + geom_point(color='pink') + 
+  theme_bw() +
+  geom_smooth(method='lm', se=FALSE, color='orange') +
+  labs(x="Type", y="Attendance ")
+```
+
+Park type is significantly associated with attendance. Amusement/Theme Park has the highest attendance and water park has the lowest attendance. 
+
+#### Relationship between region and attendance
+```{r, include=FALSE}
+region_fit = lm(attendance ~ region, data = data_df) 
+summary(region_fit)
+```
+
+```{r, message = FALSE, echo = FALSE}
+data_df |>
+  ggplot(aes(region, attendance)) + geom_point(color='pink') + 
+  theme_bw() +
+  geom_smooth(method='lm', se=FALSE, color='orange') +
+  labs(x="region", y="Attendance ")
+```
+
+Latin America is significantly associated with attendance. Overall, there is no apparent linear relationship between region and attendance.  
+
+#### Fit a Multiple linear regression
+Multiple linear regression allows us to account for the influence of multiple independent variables on the attendance simultaneously. The outcomes of the linear regression analysis suggest that the variable "year" exhibits a linear relationship with attendance. Additionally, specific categories within the "type" and "region" variables are found to be significantly associated with attendance. Thus, variables "year", "type", and "region" are used to fit a multiple linear regression. 
+```{r, echo = FALSE}
+multi_fit = lm(attendance ~ year + type + region, data = data_df)
+summary(multi_fit)
+```
+
+only North America within region is not significantly associated with attendance.
+
+#### Stepwise regression
+stepwise regression helps streamline the modeling process by automatically including or excluding variables based on statistical criteria. We use both backward and forward selection to find the best fit model. 
+```{r, echo = FALSE}
+step(multi_fit, direction='both')
+```
+
+The best fit model with lowest AIC is $\widehat{attendance}=\widehat{\beta_0}+\widehat{\beta_1}*year+\widehat{\beta_2}*type+\widehat{\beta_3}*region$.
+
+### Logistic Regression
+
+#### Background
+
+In order to further study the relationship between different stages of the COVID-19 pandemic and the visitor flow of the theme park, based on the development process of the pandemic, the years from 2019 to 2022 are divided into two pandemic levels
+
+* Outbreak period: 2019 to 2021
+
+* Control period: 2022
+
+Then add to our data as `pandemic_level`.
+
+Furthermore, to classify the pandemic period by park attendance and other covariates, including Park Type and Region, we established a logistic regression model with `pandemic_level` as the dependent variable.
+
+#### Data Preparation
+
+```{r include=FALSE, message=FALSE}
+library(tidyverse)
+library(modelr)
+library(viridis)
+library(caret)
+library(pROC)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	message = FALSE,
+	fig.width = 9, 
+  fig.height = 6,
+  out.width = "90%",
+	fig.align = 'center'
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+
+```{r message=FALSE, warning=FALSE}
+#import the data and tidy
+set.seed(12138)
+
+park_df =
+  read_csv("ultimate data.csv") |>
+  janitor::clean_names() |>
+  drop_na()
+
+logistic_df = 
+  park_df |>
+  mutate(
+    type = as.factor(type),
+    region = as.factor(region),
+    country = as.factor(country),
+    pandemic_level = case_when(
+      year == 2019 ~ "outbreak",
+      year == 2020 ~ "outbreak",
+      year == 2021 ~ "outbreak",
+      year == 2022 ~ "control"
+    ),
+    pandemic_level = as.factor(pandemic_level)
+  ) 
+```
+
+
+```{r}
+#attendance relationship
+logistic_df |>
+  ggplot(aes(park_name, log10(attendance), color = pandemic_level)) +
+  geom_point(alpha = .7) +
+  facet_grid(. ~ region ) +
+  labs(x = "Parks", y = "Attendance (log10)",
+       caption = "Fig.1 The relationship between park attendance and pandemic level across regions") +
+  theme(axis.text.x = element_blank() )
+```
+
+```{r}
+#split data into train and test subset
+cv_results = 
+  logistic_df |>
+  filter(region != "Worldwide") |>
+  mutate(
+    pandemic_level = 
+      case_match(
+        pandemic_level,
+        "outbreak" ~ 1,
+        "control" ~ 0
+      )
+  )
+
+cv_df = 
+  crossv_mc(
+  cv_results,1
+)
+
+cv_df =
+  cv_df |> 
+  mutate(
+    train = map(train, as_tibble),
+    test = map(test, as_tibble))
+```
+
+After transforming attendance by log function, the relationship between the park attendance an the pandemic levels was displayed in Fig.1. 
+
+It can be noticed that different epidemic stages may have different visitor flow patterns, in other words, the traffic of theme parks from 2019 to 2022 can be classified according to the extent of the epidemic. This is particularly true in EMEA, the Middle East and Latin America.
+
+Then the observations in region *"Worldwide"* were excluded as redundant data and `pandemic_level` is converted to a binomial distribution in order to fit logistic regression models and predict epidemic levels more easily.
+
+#### Logistic model
+
+```{r results='hide'}
+#fit model and selection
+log_mod =  
+  cv_df |>
+  select(train) |>
+  unnest(cols = c(train)) |>
+  glm(pandemic_level ~ attendance + type + region, family = "binomial", data = _)
+
+step(log_mod, direction = "forward") 
+
+best_fit = log_mod
+```
+
+```{r}
+#model summary
+coef(best_fit) |>
+  knitr::kable(col.names = c("Variables" , "Coefficients"),
+               caption = "Table.1 The coefficients of model")
+
+best_fit |>
+  broom::tidy() |>
+  knitr::kable(caption = "Table.2 Summary of the chose model" )
+
+best_fit |>
+  broom::glance() |>
+  knitr::kable(caption = "Table.3 The AIC of the model")
+```
+
+A full logistic regression model was fitted to our data with all Concomitant variables that we were interested in, including `attendance`, `type`, and `region` by `glm()` function with `binomial` as family.
+
+Then forward step-wise model selection was performed by `step()` to selected the best fitted model with lowest AIC value. 
+
+After step-wise selection, we chose the full model as the final logistic regression model while `attendance`, `typeMuseum`, `regionEMEA` and `regionLatin America` showed significant association with the `pandemic_level`. As showed in Table.1, the model statement is \newline
+
+*pandemic_level = 2.2365446 + (-8.5e-09)attendance + (-0.8417669)Museum + (-0.5368024)Water Park + (-0.7424560)EMEA + (-0.0950834)Europe Middle East Africa + (-0.8266498)Latin America +(-0.4789397)North America*
+
+#### Cross validation and ROC
+
+```{r}
+#cross validation 5 fold
+set.seed(1)
+folds <- createFolds(y=pull(cv_results, pandemic_level),k=5)
+
+#five fold ROC
+auc_value<-as.numeric()
+
+for(i in 1:5){
+  fold_test <- cv_results[folds[[i]],] 
+  fold_train <- cv_results[-folds[[i]],] 
+  fold_pre <- glm(pandemic_level ~ attendance + type + region, family = "binomial", data = fold_train )
+  fold_predict <- predict(fold_pre,type='response',newdata=fold_test)
+  auc_value<- append(auc_value,as.numeric(auc(as.numeric(pull(fold_test, pandemic_level)),fold_predict)))
+}
+
+
+#ROC for fold 1 as example
+fold_test <- cv_results[folds[[1]],]
+fold_train <- cv_results[-folds[[1]],]
+
+fold_pre <- glm(pandemic_level ~ attendance + type + region, family = "binomial", data = fold_train ) 
+fold_predict <- predict(fold_pre,type='response',newdata=fold_test)
+roc1<-roc(pull(fold_test, pandemic_level),fold_predict)
+
+plot(roc1, print.auc=T, auc.polygon=T, grid=c(0.1, 0.2),
+     grid.col=c("green", "red"), max.auc.polygon=T,
+     auc.polygon.col="skyblue", 
+     print.thres=T)
+mtext("Fig.3 The ROC curve for fold 1 of the model", side = 1, line = 4.1)
+``` 
+
+After 5 fold cross validation, the model performance was indicated by a mean AUC value, which equals to `r mean(auc_value)`, the ROC curve for fold 1 was displayed in Fig.3 as an example. 
+
+#### Disscusion
+
+According to the results, the prediction ability of the model was not excellent with a low AUC value, which may cause by the small sample size. In addition, in the binary classification of dependent variables, the sample size gap between the two categories was large, and the model can be improved by under-sampling or over-sampling methods. Moreover, the prediction ability of the model can be improved by adding weight parameters when establishing the model.
+
+## Discussion
+
+### Result Summary
+
+Our in-depth analysis of theme park attendance involved the application of linear and logistic regression models, exploratory data analysis, and ANOVA tests. The linear regression delved into the connection between attendance and diverse predictors, including city, country, year, type, and region. This examination unearthed significant associations between attendance and specific cities, countries, years, park types, and regions. Subsequently, we implemented multiple linear regression, incorporating variables that we interested in, with stepwise regression fine-tuning the model. \newline
+
+The logistic regression model introduced a new variable, `pandemic_level`, reflecting different stages of the COVID-19 pandemic. This logistic regression model successfully identified noteworthy associations between attendance, park type, region, and the pandemic level. Our analytical progress encompassed data preparation, cross-validation, ROC curve visualization, and detailed discussions on model performance. Descriptive analyses provided concise summaries of attendance trends categorized by type, region, and country, offering valuable insights into the global landscape of theme park attendance. \newline
+
+Moreover, ANOVA tests were employed to rigorously evaluate the significance of mean differences in attendance across various types and years. This comprehensive analysis seamlessly integrated statistical techniques and visualization, resulting in a thorough exploration of the theme park dataset.
+
+### Discussion
+
+Furthermore, there are still many limitations in our study, such as small sample size and insufficient sample level, which may lead to unclear trends of park flow in different regions or types during visualization, as well as low sensitivity of regression models. \newline
+
+In future studies, other factors that may be related to the flow of visitors to theme parks, such as park size, opening policies, and annual income of facilities, can be added, in order to further explore the overall impact of the epidemic on theme parks. At the same time, under-sampling or over-sampling methods can be applied to improve the balance of data, which may improve the prediction ability and accuracy of the regression models.

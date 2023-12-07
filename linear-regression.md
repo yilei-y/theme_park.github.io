@@ -98,7 +98,7 @@ to be significantly associated with attendance. Thus, variables “year”,
     ## (Intercept)                     4621928259 1470060108   3.144  0.00173 ** 
     ## year                              -2266156     727662  -3.114  0.00192 ** 
     ## typeMuseum                       -28938548    2387097 -12.123  < 2e-16 ***
-    ## typeWater Park                   -31241190    1983578 -15.750  < 2e-16 ***
+    ## typeWater Park                   -31241190    1983579 -15.750  < 2e-16 ***
     ## regionEMEA                       -14707744    2635034  -5.582 3.36e-08 ***
     ## regionEurope Middle East Africa    9197198    3154499   2.916  0.00366 ** 
     ## regionLatin America              -19240504    2955262  -6.511 1.39e-10 ***

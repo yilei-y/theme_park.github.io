@@ -29,7 +29,8 @@ top25_tp_worldwide_clean_df =
   )
 ```
 
-    ## Warning: Expected 2 pieces. Additional pieces discarded in 4 rows [85, 86, 87, 88].
+    ## Warning: Expected 2 pieces. Additional pieces
+    ## discarded in 4 rows [85, 86, 87, 88].
 
 ### Clean the dataset for the top 20 amusement/theme parks North America in 2019 to 2022
 
@@ -57,8 +58,10 @@ top20_tp_na_clean_df =
   )
 ```
 
-    ## Warning: Expected 2 pieces. Additional pieces discarded in 80 rows [1, 2, 3, 4, 5, 6, 7, 8, 9,
-    ## 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].
+    ## Warning: Expected 2 pieces. Additional pieces
+    ## discarded in 80 rows [1, 2, 3, 4, 5, 6, 7,
+    ## 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+    ## 19, 20, ...].
 
 ### Clean the dataset for the top 10 amusement/theme parks Latin America in 2019 to 2022
 
@@ -116,10 +119,12 @@ top20_tp_apac_clean_df =
   )
 ```
 
-    ## Warning: Expected 2 pieces. Additional pieces discarded in 9 rows [31, 32, 33, 43, 44, 45, 49,
-    ## 50, 51].
+    ## Warning: Expected 2 pieces. Additional pieces
+    ## discarded in 9 rows [31, 32, 33, 43, 44, 45,
+    ## 49, 50, 51].
 
-    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 3 rows [58, 59, 60].
+    ## Warning: Expected 2 pieces. Missing pieces filled
+    ## with `NA` in 3 rows [58, 59, 60].
 
 ### Clean the dataset for the top 20 water parks North America in 2019 to 2022
 
@@ -199,8 +204,10 @@ top20_wp_apac_clean_df =
   )
 ```
 
-    ## Warning: Expected 2 pieces. Additional pieces discarded in 57 rows [1, 2, 3, 4, 5, 6, 7, 8, 9,
-    ## 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].
+    ## Warning: Expected 2 pieces. Additional pieces
+    ## discarded in 57 rows [1, 2, 3, 4, 5, 6, 7,
+    ## 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+    ## 19, 20, ...].
 
 ### Clean the dataset for the top 20 museums Worldwide in 2019 to 2022
 
