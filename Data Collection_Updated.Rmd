@@ -1,7 +1,6 @@
 ---
 title: "Data Collection_Updated"
 author: "Yueyi Xu"
-date: "2023-12-05"
 output: 
   html_document:
     toc: true
