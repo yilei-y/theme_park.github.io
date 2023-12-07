@@ -44,7 +44,7 @@ theme_park = read_csv("ultimate data.csv") |>
     ) 
 ```
 
-## Descriptive Analysis for All Data: 
+## Descriptive Analysis for All Data
 
 ### Total Attendance by Type from 2019 to 2022
 
@@ -115,7 +115,7 @@ theme_full =
   read_csv("ultimate data.csv")
 ```
 
-## Top 25 theme park from worldwide's sum attendance by different country.
+### Top 25 theme park from worldwide's sum attendance by different country.
 
 Looking at the plot 1, we found that there was too much data for outliers, so we did another data analysis based on Top 25 theme park, which is labled as Worldwide on the region variable.
 ```{r}
