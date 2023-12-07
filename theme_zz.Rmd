@@ -1,7 +1,12 @@
 ---
 title: "Exploratory Data Analysis"
 author: "Zixuan Zhang, Yilei Yang"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
+    code_folding: hide
 ---
 ```{r, include = FALSE}
 library(tidyverse)
