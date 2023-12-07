@@ -5,6 +5,12 @@ navbar:
   right:
     - text: "About"
       href: about.html
+    - text: "Data Collection"
+      href: Data-Collection_Updated.html
+    - text: "EDA"
+      href: theme_zz.html
+    - text: "Regression"
+      href: Regression.html
     - icon: fa-envelope fa-lg
       href: mailto:<you@youremail.com>
     - icon: fa-github fa-lg

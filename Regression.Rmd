@@ -22,7 +22,7 @@ data_df =
 # Linear Regression
 Linear regression is used to model the relationship between attendance and five independent variables (city, country, year, type, and region). It assumes that this relationship is linear, meaning changes in the predictors are associated with a constant change in the response. We first fit linear regression of each predictors to check if they are associated with attendance.
 
-## Fit a simple linear regression between city and attendance
+## Relationship between city and attendance
 ```{r, include=FALSE}
 city_fit = lm(attendance ~ city, data = data_df) 
 summary(city_fit)
@@ -38,7 +38,7 @@ data_df |>
 
 a few cities are associated with attendance such as ANAHEIM, Beijing, UNIVERSAL CITY, TOKYO, VATICAN. In general, there is no apparent linear relationship between city and attendance.
 
-## Fit a simple linear regression between country and attendance
+## Relationship between country and attendance
 ```{r, include=FALSE}
 country_fit = lm(attendance ~ country, data = data_df) 
 summary(country_fit)
@@ -54,14 +54,14 @@ data_df |>
 
 only one country Japan is significantly associated with attendance. In general, there is no apparent linear relationship between country and attendance. 
 
-## Fit a simple linear regression between year and attendance
+## Relationship between year and attendance
 ```{r, message = FALSE, echo = FALSE}
 year_fit = lm(attendance ~ year, data = data_df) 
 summary(year_fit)
 ```
 
 according to the summary of linear regression, $\widehat{Y}=\widehat{\beta_0}+\widehat{\beta_1}*X$.
-Linear Model: $\widehat{attendance }=6104922321-3011354*year$. 
+Linear Model: $\widehat{attendance}=6104922321-3011254*year$.
 
 ```{r, message = FALSE, echo = FALSE}
 data_df |>
@@ -73,7 +73,7 @@ data_df |>
 
 Year is significantly associated with attendance, and there is a linear relationship between year and attendance. Attendance has experienced a decline from 2019 to 2022. 
 
-## Fit a simple linear regression between park type and attendance
+## Relationship between park type and attendance
 ```{r, include=FALSE}
 type_fit = lm(attendance ~ type, data = data_df) 
 summary(type_fit)
@@ -89,7 +89,7 @@ data_df |>
 
 Park type is significantly associated with attendance. Amusement/Theme Park has the highest attendance and water park has the lowest attendance. 
 
-## Fit a simple linear regression between region and attendance
+## Relationship between region and attendance
 ```{r, include=FALSE}
 region_fit = lm(attendance ~ region, data = data_df) 
 summary(region_fit)
