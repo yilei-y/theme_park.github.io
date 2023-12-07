@@ -1,10 +1,9 @@
 ---
-title: "theme_zz3168"
-author: "Zixuan Zhang"
-date: "2023-12-05"
+title: "Exploratory Data Analysis"
+author: "Zixuan Zhang, Yilei Yang"
 output: html_document
 ---
-```{r}
+```{r, include = FALSE}
 library(tidyverse)
 library(plotly)
 library(viridis)
