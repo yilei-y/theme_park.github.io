@@ -4,12 +4,50 @@ output:
   html_document:
     toc: true
     toc_float: true
+    code_folding: hide
 ---
 
 
-### Welcome to Theme Parks!
+### Impact of the Pandemic on the Attendance of Theme Parks/Museums in the United States
 
-Hello, this is our landing page for our project: Theme Parks
+
+## Motivation
+
+
+Theme parks and museums are significant contributors to the tourism and entertainment industry. Understanding how attendance has been affected provides insights into the economic impact of the pandemic on these sectors.
+Analyzing attendance data can provide insights into how the impact of the pandemic on theme parks and museums in the United States compares to other countries. This comparative analysis helps in understanding the global dynamics of the tourism and entertainment industries.
+
+## Question
+
+To scrutinize the overall  Impact of the COVID-19 Pandemic on Theme Park Attendance and to investigate the relationship between the park attendance and other covariances, including park’s region, type, country and year.
+
+## Data source
+
+Our data was collected from the “Global Attractions Attendance Report” which was published by AECOM and TEA. We included the attendance data of different Theme parks and Museums worldwide from 2019 to 2022. The article can be found here.
+https://aecom.com/wp-content/uploads/documents/reports/AECOM-Theme-Index-2022.pdf
+
+## Approaches and main results
+
+
+Visualizations: 
+There is a shared pattern in change in attendance among five regions.
+These plots show that all world theme parks have been affected by Covide-19 to some extent.
+
+
+Regression: 
+Linear Regression: it is used to model the relationship between attendance and five independent variables. Results suggest there is a linear relationship between year and attendance. The best fit model with lowest AIC is attendance ~ year + type +region. 
+
+Logistic Regression: After fitting our data to a logistic model in order to further investigate the relationship between different stages of the COVID-19 pandemic and the visitor flow of the theme park, we found that attendance and some of the park region and type were significant associated with the pandemic level. 
+The final model statement was  pandemic_level ~ attendance + type + region.
+
+
+For a full in-depth description of our project, please visit our project report page.
+
+
+## Collaborators
+yx2858,  jl6648,, zz3168,, yy3421, ps3395
+
+
 
 
 
