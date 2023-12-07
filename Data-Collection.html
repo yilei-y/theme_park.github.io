@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Data-Collection</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mailto:&lt;you@youremail.com&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/&lt;YOUR_GH_NAME&gt;/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<div id="data-collection" class="section level1">
+<h1>Data Collection</h1>
+<p>Yueyi Xu 2023-12-04</p>
+<div
+id="clean-the-dataset-for-the-top-25-amusementtheme-parks-worldwide-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 25 amusement/theme parks Worldwide in
+2019 to 2022</h3>
+<pre class="r"><code>top25_tp_worldwide =
+  read_excel(&quot;statistic_id194247_most-visited-amusement-and-theme-parks-worldwide-2019-2022.xlsx&quot;, sheet = &quot;Data&quot;)
+
+top25_tp_worldwide_clean_df =
+  top25_tp_worldwide |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  separate(
+    col = (&quot;Most visited amusement and theme parks worldwide 2019-2022&quot;), into = c(&quot;Park_Name&quot;, &quot;Country_State&quot;), sep = &quot;,&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Amusement/Theme Park&quot;,
+    Region = &quot;Worldwide&quot;,
+    Attendance = Attendance * 10e6
+  ) |&gt;
+  select(
+    Park_Name, Country_State, Year, Attendance, Type, Region
+  )</code></pre>
+<pre><code>## Warning: Expected 2 pieces. Additional pieces discarded in 4 rows [85, 86, 87, 88].</code></pre>
+</div>
+<div
+id="clean-the-dataset-for-the-top-20-amusementtheme-parks-north-america-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 20 amusement/theme parks North America
+in 2019 to 2022</h3>
+<pre class="r"><code>top20_tp_na =
+  read_excel(&quot;statistic_id194269_most-visited-amusement-and-theme-parks-in-north-america-2022.xlsx&quot;, sheet = &quot;Data&quot;)
+
+top20_tp_na_clean_df =
+  top20_tp_na |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  separate(
+    col = (&quot;Most visited amusement and theme parks in North America 2022&quot;), into = c(&quot;Park_Name&quot;, &quot;Country_State&quot;), sep = &quot;,&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Amusement/Theme Park&quot;,
+    Region = &quot;North America&quot;,
+    Attendance = Attendance * 10e6
+  ) |&gt;
+  select(
+    Park_Name, Country_State, Year, Attendance, Type, Region
+  )</code></pre>
+<pre><code>## Warning: Expected 2 pieces. Additional pieces discarded in 80 rows [1, 2, 3, 4, 5, 6, 7, 8, 9,
+## 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
+</div>
+<div
+id="clean-the-dataset-for-the-top-10-amusementtheme-parks-latin-america-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 10 amusement/theme parks Latin America
+in 2019 to 2022</h3>
+<p>*8 total</p>
+<pre class="r"><code>top10_tp_la =
+  read_excel(&quot;statistic_id194312_most-visited-latin-american-amusement-and-theme-parks-2019-2022.xlsx&quot;, sheet = &quot;Data&quot;)
+
+top10_tp_la_clean_df =
+  top10_tp_la |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  separate(
+    col = (&quot;Most visited Latin American amusement and theme parks 2019-2022&quot;), into = c(&quot;Park_Name&quot;, &quot;Country_State&quot;), sep = &quot;,&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Amusement/Theme Park&quot;,
+    Region = &quot;Latin America&quot;,
+    Attendance = Attendance * 10e6
+  ) |&gt;
+  select(
+    Park_Name, Country_State, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div
+id="clean-the-dataset-of-the-top-20-amusementtheme-parks-asia-pacific-in-2019-to-2021"
+class="section level3">
+<h3>Clean the dataset of the top 20 Amusement/Theme Parks Asia Pacific
+in 2019 to 2021</h3>
+<p>*Fix (city+country)? and sinapore without country name</p>
+<pre class="r"><code>top20_tp_apac =
+  read_excel(&quot;statistic_id194300_most-visited-amusement-and-theme-parks-apac-2019-2021.xlsx&quot;, sheet = &quot;Data&quot;)
+
+top20_tp_apac_clean_df =
+  top20_tp_apac |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2021&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  separate(
+    col = (&quot;Most visited amusement and theme parks APAC 2019-2021&quot;), into = c(&quot;Park_Name&quot;, &quot;Country_State&quot;), sep = &quot;,&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Amusement/Theme Park&quot;,
+    Region = &quot;Asia Pacific&quot;,
+    Attendance = Attendance * 10e6
+  ) |&gt;
+  select(
+    Park_Name, Country_State, Year, Attendance, Type, Region
+  )</code></pre>
+<pre><code>## Warning: Expected 2 pieces. Additional pieces discarded in 9 rows [31, 32, 33, 43, 44, 45, 49,
+## 50, 51].
+
+## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 3 rows [58, 59, 60].</code></pre>
+</div>
+<div
+id="clean-the-dataset-for-the-top-20-water-parks-north-america-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 20 water parks North America in 2019
+to 2022</h3>
+<pre class="r"><code>top20_wp_na =
+  read_excel(&quot;statistic_id194352_total-attendance-at-waterparks-in-the-us-2019-2022.xlsx&quot;, sheet = &quot;Data&quot;)
+
+top20_wp_na_clean_df =
+  top20_wp_na |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  separate(
+    col = (&quot;Total attendance at waterparks in the U.S. 2019-2022&quot;), into = c(&quot;Park_Name&quot;, &quot;Country_State&quot;), sep = &quot;,&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Water Park&quot;,
+    Region = &quot;North America&quot;,
+    Attendance = Attendance * 10e6
+  ) |&gt;
+  select(
+    Park_Name, Country_State, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div
+id="clean-the-dataset-for-the-top-10-water-parks-latin-america-in-2020"
+class="section level3">
+<h3>Clean the dataset for the top 10 water parks Latin America in
+2020</h3>
+<pre class="r"><code>top10_wp_la =
+  read_excel(&quot;statistic_id1024329_most-visited-latin-american-water-parks-2020.xlsx&quot;, sheet = &quot;Data&quot;)
+
+top10_wp_la_clean_df =
+  top10_wp_la |&gt;
+  pivot_longer(
+    (&quot;2020&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  separate(
+    col = (&quot;Most visited Latin American water parks 2020&quot;), into = c(&quot;Park_Name&quot;, &quot;Country_State&quot;), sep = &quot;,&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Water Park&quot;,
+    Region = &quot;Latin America&quot;,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, Country_State, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div
+id="clean-the-dataset-for-the-top-20-water-parks-asia-pacific-in-2019-to-2021"
+class="section level3">
+<h3>Clean the dataset for the top 20 water parks Asia Pacific in 2019 to
+2021</h3>
+<pre class="r"><code>top20_wp_apac =
+  read_excel(&quot;statistic_id1346887_most-visited-water-parks-apac-2019-2021.xlsx&quot;, sheet = &quot;Data&quot;)
+
+top20_wp_apac_clean_df =
+  top20_wp_apac |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2021&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  separate(
+    col = (&quot;Most visited water parks APAC 2019-2021&quot;), into = c(&quot;Park_Name&quot;, &quot;Country_State&quot;), sep = &quot;,&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Water Park&quot;,
+    Region = &quot;Asia Pacific&quot;,
+    Attendance = Attendance * 10e6
+  ) |&gt;
+  select(
+    Park_Name, Country_State, Year, Attendance, Type, Region
+  )</code></pre>
+<pre><code>## Warning: Expected 2 pieces. Additional pieces discarded in 57 rows [1, 2, 3, 4, 5, 6, 7, 8, 9,
+## 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
+</div>
+<div
+id="clean-the-dataset-for-the-top-20-museums-worldwide-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 20 museums Worldwide in 2019 to
+2022</h3>
+<p>*19 total</p>
+<pre class="r"><code>top20_mu_worldwide =
+  read_excel(&quot;statistic_id901072_leading-museums-by-highest-attendance-worldwide-2019-2022.xlsx&quot;, sheet = &quot;Data&quot;)
+
+top20_mu_worldwide_clean_df =
+  top20_mu_worldwide |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  separate(
+    col = (&quot;Leading museums by highest attendance worldwide 2019-2022&quot;), into = c(&quot;Park_Name&quot;, &quot;Country_State&quot;), sep = &quot;,&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Museum&quot;,
+    Region = &quot;Worldwide&quot;,
+    Attendance = Attendance * 10e6
+  ) |&gt;
+  select(
+    Park_Name, Country_State, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div
+id="clean-the-dataset-for-the-top-20-museums-europe-middle-east-africa-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 20 museums Europe Middle East Africa
+in 2019 to 2022</h3>
+<pre class="r"><code>top20_mu_emea =
+  read_excel(&quot;statistic_id747942_most-visited-museums-in-europe-2019-2022.xlsx&quot;, sheet = &quot;Data&quot;)
+
+top20_mu_emea_clean_df =
+  top20_mu_emea |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  separate(
+    col = (&quot;Most visited museums in Europe 2019-2022&quot;), into = c(&quot;Park_Name&quot;, &quot;Country_State&quot;), sep = &quot;,&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Museum&quot;,
+    Region = &quot;Europe&quot;,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, Country_State, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div id="import-the-amusementtheme-parks-data-of-emea"
+class="section level3">
+<h3>Import the amusement/theme parks data of EMEA</h3>
+<pre class="r"><code>data_text_tp_emea = &quot;1,DISNEYLAND PARK AT DISNEYLAND PARIS, MARNE-LA-VALLEE, FRANCE,184%,9930,3500,2620,9745
+2,EUROPA-PARK, RUST, GERMANY,80%,5400,3000,2500,5750
+3,DE EFTELING THEME PARK RESORT, KAATSHEUVEL, NETHERLANDS,65%,5430,3300,2900,5260
+4,WALT DISNEY STUDIOS PARK AT DISNEYLAND PARIS, MARNE-LA-VALLEE, FRANCE,183%,5340,1884,1410,5245
+5,TIVOLI GARDENS, COPENHAGEN, DENMARK,61%,3864,2400,1628,4581
+6,PORTAVENTURA WORLD, SALOU, SPAIN,56%,3750,2400,700,3750
+7,LISEBERG, GOTHENBURG, SWEDEN,73%,2500,1447,0,2950
+8,GARDALAND, CASTELNUOVO DEL GARDA, ITALY,34%,2950,2200,1350,2920
+9,LEGOLAND WINDSOR, WINDSOR, U.K.,60%,2400,1500,450,2430
+10,PARC ASTERIX, PLAILLY, FRANCE,102%,2632,1300,1163,2326
+11,PUY DU FOU, LES EPESSES, FRANCE,45%,2342,1616,923,2308
+12,PARQUE WARNER, MADRID, SPAIN,43%,1860,1300,450,2232
+13,ALTON TOWERS, STAFFORDSHIRE, U.K.,28%,2300,1800,670,2130
+14,PHANTASIALAND, BRÜHL, GERMANY,78%,2100,1180,1000,2050
+15,LEGOLAND BILLUND, BILLUND, DENMARK,164%,2242,850,700,1950
+16,THORPE PARK, CHERTSEY, U.K.,-6%,1600,1700,600,1900
+17,FUTUROSCOPE, JAUNAY-CLAN, FRANCE,75%,1920,1100,900,1900
+18,LEGOLAND DEUTSCHLAND, GÜNZBURG, GERMANY,89%,1700,900,750,1700
+19,HEIDE PARK, SOLTAU, GERMANY,23%,1600,1300,950,1700
+20,CHESSINGTON WORLD OF ADVENTURES, CHESSINGTON, U.K.,3%,1500,1450,510,1690&quot;
+
+# Read the corrected data into a data frame
+top20_tp_emea = read.table(text = data_text_tp_emea, sep = &quot;,&quot;, header = FALSE, quote = &quot;&quot;, na.strings = &quot;-&quot;)
+colnames(top20_tp_emea) = c(&quot;id&quot;,&quot;Park_Name&quot;, &quot;City&quot;, &quot;Country&quot;, &quot;%Change&quot;, &quot;2022&quot;, &quot;2021&quot;, &quot;2020&quot;, &quot;2019&quot;)</code></pre>
+</div>
+<div
+id="clean-the-dataset-for-the-top-20-amusementtheme-parks-europe-middle-east-africa-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 20 amusement/theme parks Europe Middle
+East Africa in 2019 to 2022</h3>
+<pre class="r"><code>top20_tp_emea_clean_df =
+  top20_tp_emea |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Amusement/Theme Park&quot;,
+    Region = &quot;EMEA&quot;,
+    Country_State = Country,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, Country_State, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div id="import-the-water-parks-data-of-emea" class="section level3">
+<h3>Import the water parks data of EMEA</h3>
+<pre class="r"><code>data_text_wp_emea = &quot;1, THERME ERDING, ERDING, GERMANY, 143%, 1700, 700, 750, 1850
+2, AQUAVENTURE WATER PARK, DUBAI, U.A.E., 88%, 1500, 800, 600, 1322
+3, AQUAPALACE, PRAGUE, CZECH REPUBLIC, 107%, 1200, 580, 537, 1300
+4, TROPICAL ISLANDS, KRAUSNICK, GERMANY, 130%, 1150, 500, 493, 1233
+5, SIAM PARK, SANTA CRUZ DE TENERIFE, SPAIN, 125%, 1150, 511, 97, 1200
+6, AQUALAND MORAVIA, PASOHLÁVKY, CZECH REPUBLIC, 88%, 727, 386, 368, 806
+7, TIKI POOL, DUINRELL, NETHERLANDS, 88%, 750, 400, 390, 800
+8, NETTEBAD, OSNABRÜCK, GERMANY, 87%, 650, 347, 311, 756
+9, WILD WADI, DUBAI, U.A.E., 60%, 750, 470, 350, 740
+10, LALANDIA, BILLUND, DENMARK, 67%, 750, 450, 240, 682&quot;
+top10_wp_emea = read.table(text = data_text_wp_emea, sep = &quot;,&quot;, header = FALSE, quote = &quot;&quot;)
+colnames(top10_wp_emea) = c(&quot;id&quot;,&quot;Park_Name&quot;, &quot;City&quot;, &quot;Country&quot;, &quot;%Change&quot;, &quot;2022&quot;, &quot;2021&quot;, &quot;2020&quot;, &quot;2019&quot;)</code></pre>
+</div>
+<div
+id="clean-the-dataset-for-the-top-10-water-parks-europe-middle-east-africa-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 10 water parks Europe Middle East
+Africa in 2019 to 2022</h3>
+<pre class="r"><code>top10_wp_emea_clean_df =
+  top10_wp_emea |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Water Park&quot;,
+    Region = &quot;EMEA&quot;,
+    Country_State = Country,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, Country_State, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div id="combine-all-dataset" class="section level3">
+<h3>Combine all dataset</h3>
+<pre class="r"><code>combine_df = 
+  bind_rows(top25_tp_worldwide_clean_df, top20_tp_na_clean_df, top10_tp_la_clean_df, top20_tp_apac_clean_df, top20_wp_na_clean_df, top10_wp_la_clean_df, top20_wp_apac_clean_df, top20_mu_worldwide_clean_df, top20_mu_emea_clean_df)</code></pre>
+</div>
+<div id="export-the-final-dataset" class="section level3">
+<h3>Export the final dataset</h3>
+<pre class="r"><code>write.csv(combine_df, &quot;final data.csv&quot;, row.names = FALSE)</code></pre>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
