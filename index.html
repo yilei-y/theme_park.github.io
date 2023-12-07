@@ -35,6 +35,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -324,6 +326,27 @@ div.tocify {
         <li>
   <a href="about.html">About</a>
 </li>
+<li>
+  <a href="Data-Collection_Updated.html">Data Collection</a>
+</li>
+<li>
+  <a href="theme_zz.html">EDA</a>
+</li>
+<li>
+  <a href="Regression.html">Regression</a>
+</li>
+<li>
+  <a href="mailto:&lt;you@youremail.com&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/&lt;YOUR_GH_NAME&gt;/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -338,9 +361,60 @@ div.tocify {
 </div>
 
 
-<div id="welcome-to-theme-parks" class="section level3">
-<h3>Welcome to Theme Parks!</h3>
-<p>Hello, this is our landing page for our project: Theme Parks</p>
+<div
+id="impact-of-the-pandemic-on-the-attendance-of-theme-parksmuseums-in-the-united-states"
+class="section level3">
+<h3>Impact of the Pandemic on the Attendance of Theme Parks/Museums in
+the United States</h3>
+</div>
+<div id="motivation" class="section level2">
+<h2>Motivation</h2>
+<p>Theme parks and museums are significant contributors to the tourism
+and entertainment industry. Understanding how attendance has been
+affected provides insights into the economic impact of the pandemic on
+these sectors. Analyzing attendance data can provide insights into how
+the impact of the pandemic on theme parks and museums in the United
+States compares to other countries. This comparative analysis helps in
+understanding the global dynamics of the tourism and entertainment
+industries.</p>
+</div>
+<div id="question" class="section level2">
+<h2>Question</h2>
+<p>To scrutinize the overall Impact of the COVID-19 Pandemic on Theme
+Park Attendance and to investigate the relationship between the park
+attendance and other covariances, including park’s region, type, country
+and year.</p>
+</div>
+<div id="data-source" class="section level2">
+<h2>Data source</h2>
+<p>Our data was collected from the “Global Attractions Attendance
+Report” which was published by AECOM and TEA. We included the attendance
+data of different Theme parks and Museums worldwide from 2019 to 2022.
+The article can be found here. <a
+href="https://aecom.com/wp-content/uploads/documents/reports/AECOM-Theme-Index-2022.pdf"
+class="uri">https://aecom.com/wp-content/uploads/documents/reports/AECOM-Theme-Index-2022.pdf</a></p>
+</div>
+<div id="approaches-and-main-results" class="section level2">
+<h2>Approaches and main results</h2>
+<p>Visualizations: There is a shared pattern in change in attendance
+among five regions. These plots show that all world theme parks have
+been affected by Covide-19 to some extent.</p>
+<p>Regression: Linear Regression: it is used to model the relationship
+between attendance and five independent variables. Results suggest there
+is a linear relationship between year and attendance. The best fit model
+with lowest AIC is attendance ~ year + type +region.</p>
+<p>Logistic Regression: After fitting our data to a logistic model in
+order to further investigate the relationship between different stages
+of the COVID-19 pandemic and the visitor flow of the theme park, we
+found that attendance and some of the park region and type were
+significant associated with the pandemic level. The final model
+statement was pandemic_level ~ attendance + type + region.</p>
+<p>For a full in-depth description of our project, please visit our
+project report page.</p>
+</div>
+<div id="collaborators" class="section level2">
+<h2>Collaborators</h2>
+<p>yx2858, jl6648,, zz3168,, yy3421, ps3395</p>
 </div>
 
 

@@ -29,8 +29,7 @@ top25_tp_worldwide_clean_df =
   )
 ```
 
-    ## Warning: Expected 2 pieces. Additional pieces discarded in 4 rows [85, 86, 87,
-    ## 88].
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 4 rows [85, 86, 87, 88].
 
 ### Clean the dataset for the top 20 amusement/theme parks North America in 2019 to 2022
 
@@ -58,8 +57,8 @@ top20_tp_na_clean_df =
   )
 ```
 
-    ## Warning: Expected 2 pieces. Additional pieces discarded in 80 rows [1, 2, 3, 4, 5, 6, 7,
-    ## 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 80 rows [1, 2, 3, 4, 5, 6, 7, 8, 9,
+    ## 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].
 
 ### Clean the dataset for the top 10 amusement/theme parks Latin America in 2019 to 2022
 
@@ -117,11 +116,10 @@ top20_tp_apac_clean_df =
   )
 ```
 
-    ## Warning: Expected 2 pieces. Additional pieces discarded in 9 rows [31, 32, 33, 43, 44,
-    ## 45, 49, 50, 51].
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 9 rows [31, 32, 33, 43, 44, 45, 49,
+    ## 50, 51].
 
-    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 3 rows [58, 59,
-    ## 60].
+    ## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 3 rows [58, 59, 60].
 
 ### Clean the dataset for the top 20 water parks North America in 2019 to 2022
 
@@ -201,8 +199,8 @@ top20_wp_apac_clean_df =
   )
 ```
 
-    ## Warning: Expected 2 pieces. Additional pieces discarded in 57 rows [1, 2, 3, 4, 5, 6, 7,
-    ## 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 57 rows [1, 2, 3, 4, 5, 6, 7, 8, 9,
+    ## 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].
 
 ### Clean the dataset for the top 20 museums Worldwide in 2019 to 2022
 
@@ -251,6 +249,94 @@ top20_mu_emea_clean_df =
   mutate(
     Type = "Museum",
     Region = "Europe",
+    Attendance = Attendance * 10e3
+  ) |>
+  select(
+    Park_Name, Country_State, Year, Attendance, Type, Region
+  )
+```
+
+### Import the amusement/theme parks data of EMEA
+
+``` r
+data_text_tp_emea = "1,DISNEYLAND PARK AT DISNEYLAND PARIS, MARNE-LA-VALLEE, FRANCE,184%,9930,3500,2620,9745
+2,EUROPA-PARK, RUST, GERMANY,80%,5400,3000,2500,5750
+3,DE EFTELING THEME PARK RESORT, KAATSHEUVEL, NETHERLANDS,65%,5430,3300,2900,5260
+4,WALT DISNEY STUDIOS PARK AT DISNEYLAND PARIS, MARNE-LA-VALLEE, FRANCE,183%,5340,1884,1410,5245
+5,TIVOLI GARDENS, COPENHAGEN, DENMARK,61%,3864,2400,1628,4581
+6,PORTAVENTURA WORLD, SALOU, SPAIN,56%,3750,2400,700,3750
+7,LISEBERG, GOTHENBURG, SWEDEN,73%,2500,1447,0,2950
+8,GARDALAND, CASTELNUOVO DEL GARDA, ITALY,34%,2950,2200,1350,2920
+9,LEGOLAND WINDSOR, WINDSOR, U.K.,60%,2400,1500,450,2430
+10,PARC ASTERIX, PLAILLY, FRANCE,102%,2632,1300,1163,2326
+11,PUY DU FOU, LES EPESSES, FRANCE,45%,2342,1616,923,2308
+12,PARQUE WARNER, MADRID, SPAIN,43%,1860,1300,450,2232
+13,ALTON TOWERS, STAFFORDSHIRE, U.K.,28%,2300,1800,670,2130
+14,PHANTASIALAND, BRÜHL, GERMANY,78%,2100,1180,1000,2050
+15,LEGOLAND BILLUND, BILLUND, DENMARK,164%,2242,850,700,1950
+16,THORPE PARK, CHERTSEY, U.K.,-6%,1600,1700,600,1900
+17,FUTUROSCOPE, JAUNAY-CLAN, FRANCE,75%,1920,1100,900,1900
+18,LEGOLAND DEUTSCHLAND, GÜNZBURG, GERMANY,89%,1700,900,750,1700
+19,HEIDE PARK, SOLTAU, GERMANY,23%,1600,1300,950,1700
+20,CHESSINGTON WORLD OF ADVENTURES, CHESSINGTON, U.K.,3%,1500,1450,510,1690"
+
+# Read the corrected data into a data frame
+top20_tp_emea = read.table(text = data_text_tp_emea, sep = ",", header = FALSE, quote = "", na.strings = "-")
+colnames(top20_tp_emea) = c("id","Park_Name", "City", "Country", "%Change", "2022", "2021", "2020", "2019")
+```
+
+### Clean the dataset for the top 20 amusement/theme parks Europe Middle East Africa in 2019 to 2022
+
+``` r
+top20_tp_emea_clean_df =
+  top20_tp_emea |>
+  pivot_longer(
+    ("2019"):("2022"),
+    names_to = "Year",
+    values_to = "Attendance"
+  ) |>
+  mutate(
+    Type = "Amusement/Theme Park",
+    Region = "EMEA",
+    Country_State = Country,
+    Attendance = Attendance * 10e3
+  ) |>
+  select(
+    Park_Name, Country_State, Year, Attendance, Type, Region
+  )
+```
+
+### Import the water parks data of EMEA
+
+``` r
+data_text_wp_emea = "1, THERME ERDING, ERDING, GERMANY, 143%, 1700, 700, 750, 1850
+2, AQUAVENTURE WATER PARK, DUBAI, U.A.E., 88%, 1500, 800, 600, 1322
+3, AQUAPALACE, PRAGUE, CZECH REPUBLIC, 107%, 1200, 580, 537, 1300
+4, TROPICAL ISLANDS, KRAUSNICK, GERMANY, 130%, 1150, 500, 493, 1233
+5, SIAM PARK, SANTA CRUZ DE TENERIFE, SPAIN, 125%, 1150, 511, 97, 1200
+6, AQUALAND MORAVIA, PASOHLÁVKY, CZECH REPUBLIC, 88%, 727, 386, 368, 806
+7, TIKI POOL, DUINRELL, NETHERLANDS, 88%, 750, 400, 390, 800
+8, NETTEBAD, OSNABRÜCK, GERMANY, 87%, 650, 347, 311, 756
+9, WILD WADI, DUBAI, U.A.E., 60%, 750, 470, 350, 740
+10, LALANDIA, BILLUND, DENMARK, 67%, 750, 450, 240, 682"
+top10_wp_emea = read.table(text = data_text_wp_emea, sep = ",", header = FALSE, quote = "")
+colnames(top10_wp_emea) = c("id","Park_Name", "City", "Country", "%Change", "2022", "2021", "2020", "2019")
+```
+
+### Clean the dataset for the top 10 water parks Europe Middle East Africa in 2019 to 2022
+
+``` r
+top10_wp_emea_clean_df =
+  top10_wp_emea |>
+  pivot_longer(
+    ("2019"):("2022"),
+    names_to = "Year",
+    values_to = "Attendance"
+  ) |>
+  mutate(
+    Type = "Water Park",
+    Region = "EMEA",
+    Country_State = Country,
     Attendance = Attendance * 10e3
   ) |>
   select(
