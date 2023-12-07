@@ -16,8 +16,7 @@ library(openxlsx)
 ```
 
 # Data Collection and Data Source
-Our data was collected from the “Global Attractions Attendance Report” which was published by AECOM and TEA. We included the attendance data of different Theme parks and Museums worldwide from 2019 to 2022. The article can be found here.
-https://aecom.com/wp-content/uploads/documents/reports/AECOM-Theme-Index-2022.pdf
+We sourced our data from the "Global Attractions Attendance Report," a publication by AECOM and TEA. The dataset comprises attendance information for various theme parks and museums worldwide, covering the years 2019 to 2022. You can access the detailed report through this [link](https://aecom.com/wp-content/uploads/documents/reports/AECOM-Theme-Index-2022.pdf).
 
 ### Data Import and Cleaning
 Each individual dataset catgegorized by types of parks and regions of the parks are listed in the article. By collecting each of the dataset, we created separate dataframes and combine to one ultimate dataset with all of the data focusing on "Park_Name", "City", "Country", "Year", "Attendance", "Type", and "Region".
@@ -32,7 +31,7 @@ Each individual dataset catgegorized by types of parks and regions of the parks 
 
 
 ### Import the amusement/theme parks data of Worldwide 2019-2022
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 data_text_tp_ww = "1, MAGIC KINGDOM THEME PARK AT WALT DISNEY WORLD RESORT, LAKE BUENA VISTA, U.S., 35%, 17133, 12691, 6941, 20963
 2, DISNEYLAND PARK AT DISNEYLAND RESORT, ANAHEIM, U.S., 97%, 16881, 8573, 3674, 18666
 3, TOKYO DISNEYLAND AT TOKYO DISNEY RESORT, TOKYO, JAPAN, 90%, 12000, 6300, 4160, 17910
@@ -85,7 +84,7 @@ top25_tp_ww_clean_df =
 
 
 ### Import the amusement/theme parks data of North America 2019-2022
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 data_text_tp_na = "1, MAGIC KINGDOM THEME PARK AT WALT DISNEY WORLD, LAKE BUENA VISTA, FL, U.S., 35%, 17133, 12691, 6941, 20963
 2, DISNEYLAND PARK AT DISNEYLAND RESORT, ANAHEIM, CA, U.S., 97%, 16881, 8573, 3674, 18666
 3, DISNEY'S ANIMAL KINGDOM AT WALT DISNEY WORLD, LAKE BUENA VISTA, FL, U.S., 25%, 9027, 7194, 4166, 13888
@@ -133,7 +132,7 @@ top20_tp_na_clean_df =
 
 
 ### Import the amusement/theme parks data of Latin America 2019-2022
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 data_text_tp_la = "1,SIX FLAGS MEXICO, MEXICO CITY, MEXICO, 54%, 1727, 1125, 701, 2803
 2,BETO CARRERO WORLD, SANTA CATARINA, BRAZIL, 23%, 2327, 1895, 1252, 2241
 3,PARQUE XCARET, CANCUN, MEXICO, 27%, 1399, 1104, 736, 1960
@@ -171,7 +170,7 @@ top10_tp_la_clean_df =
 
 
 ### Import the amusement/theme parks data of Asia Pacific 2019-2022
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 data_text_tp_apac = "1, TOKYO DISNEYLAND AT TOKYO DISNEY RESORT, TOKYO, JAPAN, 90%, 12000, 6300, 4160, 17910
 2, TOKYO DISNEYSEA AT TOKYO DISNEY RESORT, TOKYO, JAPAN, 74%, 10100, 5800, 3400, 14650
 3, UNIVERSAL STUDIOS JAPAN, OSAKA, JAPAN, 125%, 12350, 5500, 4901, 14500
@@ -218,8 +217,8 @@ top20_tp_apac_clean_df =
 ```
 
 
-### Import the amusement/theme parks data of EMEA
-```{r, echo=FALSE}
+### Import the amusement/theme parks data of Europe Middle East Africa
+```{r, echo=TRUE}
 data_text_tp_emea = "1,DISNEYLAND PARK AT DISNEYLAND PARIS, MARNE-LA-VALLEE, FRANCE,184%,9930,3500,2620,9745
 2,EUROPA-PARK, RUST, GERMANY,80%,5400,3000,2500,5750
 3,DE EFTELING THEME PARK RESORT, KAATSHEUVEL, NETHERLANDS,65%,5430,3300,2900,5260
@@ -268,7 +267,7 @@ top20_tp_emea_clean_df =
 
 
 ### Import water parks data of North America 2019-2022
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 data_text_wp_na = "1,DISNEY'S TYPHOON LAGOON WATER PARK AT WALT DISNEY WORLD RESORT, ORLANDO, FL, U.S., 0%, 1915, 0, 0, 2248
 2,DISNEY'S BLIZZARD BEACH WATER PARK AT WALT DISNEY WORLD RESORT, ORLANDO, FL, U.S., -92%, 101, 1201, 316, 1983
 3,UNIVERSAL'S VOLCANO BAY, ORLANDO, FL, U.S., 9%, 1850, 1691, 551, 1811
@@ -316,7 +315,7 @@ top20_wp_na_clean_df =
 
 
 ### Import water parks data of Latin America 2019-2022
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 data_text_wp_la = "1, THERMAS DOS LARANJAIS, OLIMPIA, BRAZIL, 47%, 1729, 1179, 922, 1845
 2, BAHAMAS AQUAVENTURE WATER PARK, PARADISE ISLAND (NASSAU NEW PROVIDENCE), BAHAMAS, 38%, 1751, 1269, 494, 1813
 3, HOT PARK RIO QUENTE, RIO QUENTE, BRAZIL, 53%, 1430, 933, 734, 1469
@@ -353,9 +352,8 @@ top10_wp_la_clean_df =
 ```
 
 
-
 ### Import water parks data of Asia Pacific 2019-2022
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 data_text_wp_apac = "1, CHIMELONG WATER PARK, GUANGZHOU, CHINA, -27%, 1620, 2230, 1512, 3014
 2, WUHU FANTAWILD WATER PARK, WUHU, CHINA, 115%, 928, 431, 770, 1348
 3, CARIBBEAN BAY, SEOUL, SOUTH KOREA, 348%, 995, 222, 168, 1333
@@ -402,8 +400,8 @@ top20_wp_apac_clean_df =
 ```
 
 
-### Import the water parks data of EMEA
-```{r, echo=FALSE}
+### Import the water parks data of Europe Middle East Africa
+```{r, echo=TRUE}
 data_text_wp_emea = "1, THERME ERDING, ERDING, GERMANY, 143%, 1700, 700, 750, 1850
 2, AQUAVENTURE WATER PARK, DUBAI, U.A.E., 88%, 1500, 800, 600, 1322
 3, AQUAPALACE, PRAGUE, CZECH REPUBLIC, 107%, 1200, 580, 537, 1300
@@ -441,7 +439,7 @@ top10_wp_emea_clean_df =
 
 
 ### Import museums data of Worldwide 2019-2022
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 data_text_mu_ww = "1, LOUVRE, PARIS, FRANCE, 173%, 7726, 2825, 2700, 9600
 2, NATIONAL MUSEUM OF CHINA, BEIJING, CHINA, -31%, 1631, 2378, 1600, 7390
 3, VATICAN MUSEUMS, VATICAN, VATICAN CITY, 215%, 5081, 1613, 1300, 6883
@@ -489,7 +487,7 @@ top20_mu_ww_clean_df =
 
 
 ### Import museums data of North America 2019-2022
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 data_text_mu_na = "1, THE METROPOLITAN MUSEUM OF ART, NEW YORK, NY, U.S., 64%, 3209, 1958, 1125, 6770
 2, AMERICAN MUSEUM OF NATURAL HISTORY, NEW YORK, NY, U.S., 0, 0, 0, 0, 5000
 3, NATIONAL MUSEUM OF NATURAL HISTORY, WASHINGTON, DC, U.S., 297%, 3900, 982, 573, 4200
@@ -537,7 +535,7 @@ top20_mu_na_clean_df =
 
 
 ### Import museums data of Asia Pacific 2019-2022
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 data_text_mu_apac = "1, NATIONAL MUSEUM OF CHINA, BEIJING, CHINA, -31%, 1631, 2378, 1600, 7390
 2, SHANGHAI SCIENCE & TECHNOLOGY MUSEUM, SHANGHAI, CHINA, -79%, 494, 2368, 1351, 4824
 3, NANJING MUSEUM, NANJING, CHINA, -21%, 1610, 2034, 1515, 4169
@@ -585,7 +583,7 @@ top20_mu_apac_clean_df =
 
 
 ### Import museums data of Europe Middle East Africa 2019-2022
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 data_text_mu_emea = "1, LOUVRE, PARIS, FRANCE, 173%, 7726, 2825, 2700, 9600
 2, VATICAN MUSEUMS, VATICAN, VATICAN CITY, 215%, 5081, 1613, 1300, 6883
 3, BRITISH MUSEUM, LONDON, U.K., 209%, 4097, 1327, 1275, 6208
@@ -630,7 +628,6 @@ top20_mu_emea_clean_df =
     Park_Name, City, Country, Year, Attendance, Type, Region
   )
 ```
-
 
 
 
