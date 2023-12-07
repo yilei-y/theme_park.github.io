@@ -61,7 +61,7 @@ summary(year_fit)
 ```
 
 according to the summary of linear regression, $\widehat{Y}=\widehat{\beta_0}+\widehat{\beta_1}*X$.
-Linear Model: $\widehat{attendance }=6104922321-3011354*year$. 
+Linear Model: $\widehat{attendance}=6104922321-3011254*year$.
 
 ```{r, message = FALSE, echo = FALSE}
 data_df |>
