@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Yueyi Xu, Zixuan Zhang, Yilei Yang, Jixin Li, Peng Su" />
+
+
+<title>Impact of the Pandemic on the Attendance of Theme Parks/Museums Worldwide</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="Data-Collection_Updated.html">Data Collection</a>
+</li>
+<li>
+  <a href="theme_zz.html">EDA</a>
+</li>
+<li>
+  <a href="Regression.html">Regression</a>
+</li>
+<li>
+  <a href="mailto:&lt;you@youremail.com&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/&lt;YOUR_GH_NAME&gt;/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Impact of the Pandemic on the Attendance of
+Theme Parks/Museums Worldwide</h1>
+<h4 class="author">Yueyi Xu, Zixuan Zhang, Yilei Yang, Jixin Li, Peng
+Su</h4>
+
+</div>
+
+
+<div id="motivation" class="section level2">
+<h2>Motivation</h2>
+<p>As theme parks and museums are significant contributors to the
+tourism and entertainment industry. Then understanding how attendance
+has been affected is vital and may provides insights into the economic
+impact of the pandemic on these sectors. </p>
+<p>In addition, analyzing attendance data of parks and museums from
+different region can provide insights into how the impact of the
+pandemic on theme parks and museums in the United States compares to
+other countries. This comparative analysis helps in understanding the
+global dynamics of the tourism and entertainment industries, which also
+provides insights into understanding how different regions responded to
+COVID-19.</p>
+</div>
+<div id="related-work" class="section level2">
+<h2>Related work</h2>
+<p>The official websites of major theme park operators release
+statements and reports on how the pandemic has affected their attendance
+and operations, which inspire us to investigate the impact of the
+COVID-19 pandemic on theme park attendance.</p>
+</div>
+<div id="initial-questions" class="section level2">
+<h2>Initial questions</h2>
+<p>The main question we are trying to understand is what is the overall
+Impact of the COVID-19 Pandemic on Theme Park Attendance. While
+collecting the data, we also involved attendance data of different theme
+parks, water parks and museums around the world. After adding variables
+such as park types and regions, we also tried to investigate the
+relationship between the park attendance and other covariants.</p>
+</div>
+<div id="data-collection-and-cleaning" class="section level2">
+<h2>Data Collection and cleaning</h2>
+<div id="data-collection-and-data-source" class="section level3">
+<h3>Data Collection and Data Source</h3>
+<p>Our data was collected from the “Global Attractions Attendance
+Report” which was published by AECOM and TEA. We included the attendance
+data of different Theme parks and Museums worldwide from 2019 to 2022.
+The article can be found here. <a
+href="https://aecom.com/wp-content/uploads/documents/reports/AECOM-Theme-Index-2022.pdf"
+class="uri">https://aecom.com/wp-content/uploads/documents/reports/AECOM-Theme-Index-2022.pdf</a></p>
+</div>
+<div id="data-import-and-cleaning" class="section level3">
+<h3>Data Import and Cleaning</h3>
+<p>Each individual dataset catgegorized by types of parks and regions of
+the parks are listed in the article. By collecting each of the dataset,
+we created separate dataframes and combine to one ultimate dataset with
+all of the data focusing on “Park_Name”, “City”, “Country”, “Year”,
+“Attendance”, “Type”, and “Region”.</p>
+<p>“Park_Name”: Names of the park “City”: City of where the park is
+located “Country”: Country of where the park is located “Year”: Year of
+attendance “Attendance”: Number of people visited the park “Type”:
+Amusement/Theme Parks, Water Parks, and Museums “Region”: Worldwide,
+North America, Latin America, Asia Pacific, Europe Middle East
+Africa</p>
+</div>
+<div id="import-the-amusementtheme-parks-data-of-worldwide-2019-2022"
+class="section level3">
+<h3>Import the amusement/theme parks data of Worldwide 2019-2022</h3>
+</div>
+<div
+id="clean-the-dataset-for-the-top-25-amusementtheme-parks-worldwide-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 25 amusement/theme parks Worldwide in
+2019 to 2022</h3>
+<pre class="r"><code>top25_tp_ww_clean_df =
+  top25_tp_ww |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Amusement/Theme Park&quot;,
+    Region = &quot;Worldwide&quot;,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, City, Country, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div
+id="import-the-amusementtheme-parks-data-of-north-america-2019-2022"
+class="section level3">
+<h3>Import the amusement/theme parks data of North America
+2019-2022</h3>
+</div>
+<div
+id="clean-the-dataset-for-the-top-20-amusementtheme-parks-north-america-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 20 amusement/theme parks North America
+in 2019 to 2022</h3>
+<pre class="r"><code>top20_tp_na_clean_df =
+  top20_tp_na |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Amusement/Theme Park&quot;,
+    Region = &quot;North America&quot;,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, City, Country, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div
+id="import-the-amusementtheme-parks-data-of-latin-america-2019-2022"
+class="section level3">
+<h3>Import the amusement/theme parks data of Latin America
+2019-2022</h3>
+</div>
+<div
+id="clean-the-dataset-for-the-top-10-amusementtheme-parks-latin-america-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 10 amusement/theme parks Latin America
+in 2019 to 2022</h3>
+<pre class="r"><code>top10_tp_la_clean_df =
+  top10_tp_la |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Amusement/Theme Park&quot;,
+    Region = &quot;Latin America&quot;,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, City, Country, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div id="import-the-amusementtheme-parks-data-of-asia-pacific-2019-2022"
+class="section level3">
+<h3>Import the amusement/theme parks data of Asia Pacific 2019-2022</h3>
+</div>
+<div
+id="clean-the-dataset-of-the-top-20-amusementtheme-parks-asia-pacific-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset of the top 20 Amusement/Theme Parks Asia Pacific
+in 2019 to 2022</h3>
+<pre class="r"><code>top20_tp_apac_clean_df =
+  top20_tp_apac |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2021&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Amusement/Theme Park&quot;,
+    Region = &quot;Asia Pacific&quot;,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, City, Country, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div id="import-the-amusementtheme-parks-data-of-emea"
+class="section level3">
+<h3>Import the amusement/theme parks data of EMEA</h3>
+</div>
+<div
+id="clean-the-dataset-for-the-top-20-amusementtheme-parks-europe-middle-east-africa-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 20 amusement/theme parks Europe Middle
+East Africa in 2019 to 2022</h3>
+<pre class="r"><code>top20_tp_emea_clean_df =
+  top20_tp_emea |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Amusement/Theme Park&quot;,
+    Region = &quot;EMEA&quot;,
+    Country_State = Country,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, City, Country, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div id="import-water-parks-data-of-north-america-2019-2022"
+class="section level3">
+<h3>Import water parks data of North America 2019-2022</h3>
+</div>
+<div
+id="clean-the-dataset-for-the-top-20-water-parks-north-america-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 20 water parks North America in 2019
+to 2022</h3>
+<pre class="r"><code>top20_wp_na_clean_df =
+  top20_wp_na |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Water Park&quot;,
+    Region = &quot;North America&quot;,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, City, Country, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div id="import-water-parks-data-of-latin-america-2019-2022"
+class="section level3">
+<h3>Import water parks data of Latin America 2019-2022</h3>
+</div>
+<div
+id="clean-the-dataset-for-the-top-10-water-parks-latin-america-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 10 water parks Latin America in 2019
+to 2022</h3>
+<pre class="r"><code>top10_wp_la_clean_df =
+  top10_wp_la |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Water Park&quot;,
+    Region = &quot;Latin America&quot;,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, City, Country, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div id="import-water-parks-data-of-asia-pacific-2019-2022"
+class="section level3">
+<h3>Import water parks data of Asia Pacific 2019-2022</h3>
+</div>
+<div
+id="clean-the-dataset-for-the-top-20-water-parks-asia-pacific-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 20 water parks Asia Pacific in 2019 to
+2022</h3>
+<pre class="r"><code>top20_wp_apac_clean_df =
+  top20_wp_apac |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Water Park&quot;,
+    Region = &quot;Asia Pacific&quot;,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, City, Country, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div id="import-the-water-parks-data-of-emea" class="section level3">
+<h3>Import the water parks data of EMEA</h3>
+</div>
+<div
+id="clean-the-dataset-for-the-top-10-water-parks-europe-middle-east-africa-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 10 water parks Europe Middle East
+Africa in 2019 to 2022</h3>
+<pre class="r"><code>top10_wp_emea_clean_df =
+  top10_wp_emea |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Water Park&quot;,
+    Region = &quot;EMEA&quot;,
+    Country_State = Country,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, City, Country, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div id="import-museums-data-of-worldwide-2019-2022"
+class="section level3">
+<h3>Import museums data of Worldwide 2019-2022</h3>
+</div>
+<div
+id="clean-the-dataset-for-the-top-20-museums-worldwide-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 20 museums Worldwide in 2019 to
+2022</h3>
+<pre class="r"><code>top20_mu_ww_clean_df =
+  top20_mu_ww |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Museum&quot;,
+    Region = &quot;Worldwide&quot;,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, City, Country, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div id="import-museums-data-of-north-america-2019-2022"
+class="section level3">
+<h3>Import museums data of North America 2019-2022</h3>
+</div>
+<div
+id="clean-the-dataset-for-the-top-20-museums-north-america-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 20 museums North America in 2019 to
+2022</h3>
+<pre class="r"><code>top20_mu_na_clean_df =
+  top20_mu_na |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Museum&quot;,
+    Region = &quot;North America&quot;,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, City, Country, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div id="import-museums-data-of-asia-pacific-2019-2022"
+class="section level3">
+<h3>Import museums data of Asia Pacific 2019-2022</h3>
+</div>
+<div
+id="clean-the-dataset-for-the-top-20-museums-asia-pacific-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 20 museums Asia Pacific in 2019 to
+2022</h3>
+<pre class="r"><code>top20_mu_apac_clean_df =
+  top20_mu_apac |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Museum&quot;,
+    Region = &quot;Asia Pacific&quot;,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, City, Country, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div id="import-museums-data-of-europe-middle-east-africa-2019-2022"
+class="section level3">
+<h3>Import museums data of Europe Middle East Africa 2019-2022</h3>
+</div>
+<div
+id="clean-the-dataset-for-the-top-20-museums-europe-middle-east-africa-in-2019-to-2022"
+class="section level3">
+<h3>Clean the dataset for the top 20 museums Europe Middle East Africa
+in 2019 to 2022</h3>
+<pre class="r"><code>top20_mu_emea_clean_df =
+  top20_mu_emea |&gt;
+  pivot_longer(
+    (&quot;2019&quot;):(&quot;2022&quot;),
+    names_to = &quot;Year&quot;,
+    values_to = &quot;Attendance&quot;
+  ) |&gt;
+  mutate(
+    Type = &quot;Museum&quot;,
+    Region = &quot;Europe Middle East Africa&quot;,
+    Attendance = Attendance * 10e3
+  ) |&gt;
+  select(
+    Park_Name, City, Country, Year, Attendance, Type, Region
+  )</code></pre>
+</div>
+<div id="combine-all-dataset" class="section level3">
+<h3>Combine all dataset</h3>
+<pre class="r"><code>combine_df = 
+  bind_rows(top25_tp_ww_clean_df, top20_tp_na_clean_df, top10_tp_la_clean_df, top20_tp_apac_clean_df, top20_tp_emea_clean_df, top20_wp_na_clean_df, top10_wp_la_clean_df, top20_wp_apac_clean_df, top10_wp_emea_clean_df, top20_mu_ww_clean_df, top20_mu_na_clean_df, top20_mu_apac_clean_df, top20_mu_emea_clean_df)</code></pre>
+</div>
+<div id="export-the-final-dataset" class="section level3">
+<h3>Export the final dataset</h3>
+<pre class="r"><code>write.csv(combine_df, &quot;ultimate data.csv&quot;, row.names = FALSE)</code></pre>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
