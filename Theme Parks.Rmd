@@ -1,0 +1,15 @@
+---
+title: "Theme Parks"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+
+### Welcome to Theme Parks!
+
+Hello, this is our landing page for our project: Theme Parks
+
+
+
