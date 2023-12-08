@@ -52,8 +52,7 @@ For a full in-depth description of our project, please visit our [project report
 
 ## Screencast
 
-<iframe width="560" height="315" src="https://youtu.be/5h6lOPEO4AU" frameborder="0" allowfullscreen></iframe>
-
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=5h6lOPEO4AU" frameborder="0" allowfullscreen></iframe>
 
 ## Collaborators
 
