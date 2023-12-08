@@ -10,6 +10,10 @@ output:
 <img src="image/park.png" style="width:80%">
 </center>
 
+```{r}
+library(vembedr)
+```
+
 ## Motivation
 
 * Theme parks and museums are significant contributors to the tourism and entertainment industry. Understanding how attendance has been affected provides insights into the economic impact of the pandemic on these sectors.
@@ -52,7 +56,10 @@ For a full in-depth description of our project, please visit our [project report
 
 ## Screencast
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=5h6lOPEO4AU" frameborder="0" allowfullscreen></iframe>
+```{r}
+vembedr::embed_url("https://youtu.be/5h6lOPEO4AU")
+```
+
 
 ## Collaborators
 
